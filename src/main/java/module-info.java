@@ -1,0 +1,12 @@
+module universite_paris8.iut.dfang.sae_dev {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.web;
+
+    requires org.controlsfx.controls;
+    requires eu.hansolo.tilesfx;
+    requires jdk.jdi;
+
+    opens universite_paris8.iut.dfang.sae_dev to javafx.fxml;
+    exports universite_paris8.iut.dfang.sae_dev;
+}

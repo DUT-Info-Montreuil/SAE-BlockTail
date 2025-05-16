@@ -1,0 +1,51 @@
+package universite_paris8.iut.dfang.sae_dev.model;
+
+/*
+    Cette classe définit l'emplacement des tuiles sur la carte.
+ */
+public class Terrain {
+
+    public static int TAILLE_TUILES = 16;
+
+    private int[][] codesTuiles = {
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
+            {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+    };
+
+    private int[][] map1 = {
+            {1,1,1,1,1},
+            {1,1,2,2,2},
+            {3,3,3,3,3},
+    };
+
+
+    private int[][] map2 = {
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,4,4,4,1,1,1,1,1,1,1,1},
+            {1,1,1,4,5,4,1,1,1,1,1,1,1,1},
+            {1,1,1,4,5,4,1,1,1,1,1,1,1,1},
+            {1,1,1,1,5,1,1,1,1,1,1,1,1,1},
+            {1,1,1,2,2,2,1,1,1,1,1,1,1,1},
+            {2,2,2,3,3,3,2,2,2,2,2,2,2,2},
+            {3,3,3,6,6,6,3,3,3,3,3,3,3,3},
+            {6,6,6,8,8,8,6,6,6,7,6,6,6,6},
+    };
+
+    public int largeur ()  {
+        return this.codesTuiles.length;
+    }
+
+    public int hauteur ()  {
+        return this.codesTuiles[0].length;
+    }
+
+    public int codeTuile (int i, int j) {
+        return this.codesTuiles[i][j];
+    }
+
+}
+
+
