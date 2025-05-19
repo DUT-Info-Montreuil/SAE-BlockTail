@@ -1,14 +1,16 @@
 package universite_paris8.iut.dfang.sae_dev;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.util.Duration;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.w3c.dom.ls.LSOutput;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
@@ -17,6 +19,10 @@ import universite_paris8.iut.dfang.sae_dev.vue.TerrrainVue;
 
 
 public class Controleur implements Initializable {
+
+    private Timeline gameLoop;
+
+    private int temps;
 
     @FXML
     public TilePane tilepane;
@@ -30,6 +36,10 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        initAnimation();
+
+
         Terrain terrain = new Terrain();
         TerrrainVue terrrainVue = new TerrrainVue(terrain, tilepane);
 
@@ -41,20 +51,34 @@ public class Controleur implements Initializable {
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
         PanePrincipal.setOnKeyPressed(this::gererToucheClavier);
+
+
+        gameLoop.play();
     }
     //geeihihiugufjhgfrg
 
     private void gererToucheClavier(KeyEvent event) {
         if (event.getCode() == KeyCode.Z) {
-            joueur.yPosProperty().set(joueur.getyPos() - 10); // Haut
+            joueur.deplacerHaut();     // Haut
         } else if (event.getCode() == KeyCode.S) {
-            joueur.yPosProperty().set(joueur.getyPos() + 10); // Bas
+            joueur.deplacerBas(); // Bas
         } else if (event.getCode() == KeyCode.Q) {
-            joueur.xPosProperty().set(joueur.getxPos() - 10); // Gauche
+            joueur.deplacerGauche(); // Gauche
         } else if (event.getCode() == KeyCode.D) {
-            joueur.xPosProperty().set(joueur.getxPos() + 10); // Droite
+            joueur.deplacerDroite(); // Droite
         }
     }
 
+    private void initAnimation(){
+        Joueur joueur = new Joueur(0,0);
+        gameLoop = new Timeline();
+        temps = 0 ;
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
 
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
+            joueur.actualisationDuPersonnage(PanePrincipal);
+            gererToucheClavier();
+        }));
+        gameLoop.getKeyFrames().add(kf);
+    }
 }

@@ -5,13 +5,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
 
 public class Joueur {
     private IntegerProperty xPos , yPos ;
     private int ID ;
-    private ImageView joueur ;
-
+    private String direction ;
 
     public Joueur(int x , int y){
         this.xPos = new SimpleIntegerProperty(x);
@@ -19,13 +19,23 @@ public class Joueur {
     }
 
     public void actualisationDuPersonnage(Pane pane){
-        Image personnageImg = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/personnage.png").toExternalForm());
-        joueur = new ImageView(personnageImg);
-        joueur.translateXProperty().bind(xPosProperty());
-        joueur.translateYProperty().bind(yPosProperty());
-        pane.getChildren().add(joueur);
+        PersonnagesVue perso= new PersonnagesVue();
+        perso.afficherpersonnage(this,pane);
     }
 
+    public void deplacerHaut() {
+        yPosProperty().setValue(yPosProperty().getValue() - 10);
+    }
+
+    public void deplacerBas() {yPosProperty().setValue(yPosProperty().getValue() + 10);}
+
+    public void deplacerDroite() {
+        xPosProperty().setValue(xPosProperty().getValue() + 10);
+    }
+
+    public void deplacerGauche() {
+        xPosProperty().setValue(xPosProperty().getValue() - 10);
+    }
 
     public void setyPos(int yPos) {
         this.yPos.set(yPos);
