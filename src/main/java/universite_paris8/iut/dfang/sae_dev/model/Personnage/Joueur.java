@@ -11,30 +11,36 @@ import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 public class Joueur {
     private IntegerProperty xPos , yPos ;
     private int ID ;
-    private String direction ;
+    private int direction ;
+    private int vitesse = 1;
 
-    public Joueur(int x , int y){
+    public Joueur(int x , int y , int vitesse){
         this.xPos = new SimpleIntegerProperty(x);
         this.yPos = new SimpleIntegerProperty(y);
+        this.vitesse = 1 ;
     }
 
-    public void actualisationDuPersonnage(Pane pane){
-        PersonnagesVue perso= new PersonnagesVue();
-        perso.afficherpersonnage(this,pane);
+    public void actualisationDuPersonnage(Pane pane) {
+        PersonnagesVue perso = new PersonnagesVue();
+        perso.afficherpersonnage(this, pane);
     }
 
-    public void deplacerHaut() {
-        yPosProperty().setValue(yPosProperty().getValue() - 10);
+    public void setDirection(int direction){
+        this.direction = direction ;
+        System.out.println("joueur " + this.direction);
     }
 
-    public void deplacerBas() {yPosProperty().setValue(yPosProperty().getValue() + 10);}
 
-    public void deplacerDroite() {
-        xPosProperty().setValue(xPosProperty().getValue() + 10);
-    }
-
-    public void deplacerGauche() {
-        xPosProperty().setValue(xPosProperty().getValue() - 10);
+    public void Direction() {
+        if(this.direction == 1){//Droite
+            xPosProperty().setValue(xPosProperty().getValue() + this.vitesse);
+        } else if (this.direction == 2) {//Gauche
+            xPosProperty().setValue(xPosProperty().getValue() - this.vitesse);
+        } else if (this.direction == 3) {//Haut
+            yPosProperty().setValue(yPosProperty().getValue() - this.vitesse);
+        } else if(this.direction == 4){//Bas
+            yPosProperty().setValue(yPosProperty().getValue() + this.vitesse);
+        }
     }
 
     public void setyPos(int yPos) {
@@ -49,6 +55,10 @@ public class Joueur {
         return xPos.get();
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
     public IntegerProperty xPosProperty() {
         return xPos;
     }
@@ -59,6 +69,10 @@ public class Joueur {
 
     public IntegerProperty yPosProperty() {
         return yPos;
+    }
+
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
     }
 
     public int getID() {

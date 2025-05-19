@@ -43,41 +43,43 @@ public class Controleur implements Initializable {
         Terrain terrain = new Terrain();
         TerrrainVue terrrainVue = new TerrrainVue(terrain, tilepane);
 
-
-
-        joueur = new Joueur(100, 100); // Position initiale
+        joueur = new Joueur(100, 100 , 1); // Position initiale
         joueur.actualisationDuPersonnage(PanePrincipal);
 
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
         PanePrincipal.setOnKeyPressed(this::gererToucheClavier);
-
-
+        PanePrincipal.setOnKeyReleased(this::resetDirection);
         gameLoop.play();
     }
     //geeihihiugufjhgfrg
 
     private void gererToucheClavier(KeyEvent event) {
         if (event.getCode() == KeyCode.Z) {
-            joueur.deplacerHaut();     // Haut
+            joueur.setDirection(3);// Haut
         } else if (event.getCode() == KeyCode.S) {
-            joueur.deplacerBas(); // Bas
+            joueur.setDirection(4); // Bas
         } else if (event.getCode() == KeyCode.Q) {
-            joueur.deplacerGauche(); // Gauche
+            joueur.setDirection(2); // Gauche
         } else if (event.getCode() == KeyCode.D) {
-            joueur.deplacerDroite(); // Droite
+            joueur.setDirection(1); // Droite
         }
+    }
+    private void resetDirection(KeyEvent event) {
+        joueur.setDirection(0);
     }
 
     private void initAnimation(){
-        Joueur joueur = new Joueur(0,0);
+
         gameLoop = new Timeline();
         temps = 0 ;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-            joueur.actualisationDuPersonnage(PanePrincipal);
-            gererToucheClavier();
+
+
+            joueur.Direction();
+            System.out.println("gameloop " + joueur.getDirection());
         }));
         gameLoop.getKeyFrames().add(kf);
     }
