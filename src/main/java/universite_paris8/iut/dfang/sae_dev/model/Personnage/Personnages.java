@@ -14,6 +14,27 @@ public class Personnages {
         this.yPos = new SimpleIntegerProperty(y);
     }
 
+    public int getxPos() {
+        return xPos.get();
+    }
 
+    public IntegerProperty xPosProperty() {
+        return xPos;
+    }
 
+    public int getyPos() {
+        return yPos.get();
+    }
+
+    public IntegerProperty yPosProperty() {
+        return yPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos.set(yPos);
+    }
+
+    public void setxPos(int xPos) {
+        this.xPos.set(xPos);
+    }
 }

@@ -1,19 +1,23 @@
 package universite_paris8.iut.dfang.sae_dev.vue;
 
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 
-public class PersonnagesVue {
+import java.util.ArrayList;
 
-
-    public void afficherpersonnage(Joueur joueur, Pane pane) {
-        Image personnageImg = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/personnage.png").toExternalForm());
-        ImageView perso = new ImageView(personnageImg);
-        perso.translateXProperty().bind(joueur.xPosProperty());
-        perso.translateYProperty().bind(joueur.yPosProperty());
-        pane.getChildren().add(perso);
+public class PersonnagesVue extends ImageView{
+    private Image personnageImg = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/personnage.png").toExternalForm());
+    private ArrayList<Image> images = new ArrayList<Image>();
+    public PersonnagesVue(Joueur joueur, Pane pane , Timeline gameLoop) {
+        super();
+        this.setImage(personnageImg);
+    }
+    public void affichage(Joueur joueur){
+        this.translateXProperty().bind(joueur.xPosProperty());
+        this.translateYProperty().bind(joueur.yPosProperty());
     }
 
 

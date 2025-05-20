@@ -3,29 +3,24 @@ package universite_paris8.iut.dfang.sae_dev.model.Personnage;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.Pane;
+import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
 
-public class Joueur {
+public class Joueur extends Personnages{
     private IntegerProperty xPos , yPos ;
     private int ID ;
     private boolean aDroite , aGauche , enHaut;
-    private int vitesse = 1;
+    private int vitesse = 2;
     private int GROUND_LEVEL = 150;
     private double velocityY ;
     private double gravity = 0.5 ;
-    private int jumpStrength = -7 ;
+    private int jumpStrength = -5 ;
 
 
-    public Joueur(int x , int y , int vitesse){
-        this.xPos = new SimpleIntegerProperty(x);
-        this.yPos = new SimpleIntegerProperty(y);
+    public Joueur(Environnement environnement){
+        super(100,100 ,environnement) ;
         this.vitesse = 1 ;
-    }
-
-    public void actualisationDuPersonnage(Pane pane) {
-        PersonnagesVue perso = new PersonnagesVue();
-        perso.afficherpersonnage(this, pane);
     }
 
 

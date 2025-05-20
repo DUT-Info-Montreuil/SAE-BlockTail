@@ -1,25 +1,29 @@
-package universite_paris8.iut.dfang.sae_dev;
+package universite_paris8.iut.dfang.sae_dev.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.input.KeyCode;
+
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
+import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 import universite_paris8.iut.dfang.sae_dev.vue.TerrrainVue;
 
 
 public class Controleur implements Initializable {
 
     private Timeline gameLoop;
-
     private int temps;
+    private Environnement environnement ;
+    private Joueur faust ;
+    private PersonnagesVue faustVue ;
 
     @FXML
     public TilePane tilepane;
@@ -28,20 +32,20 @@ public class Controleur implements Initializable {
     public Pane PanePrincipal;
 
 
-    private Joueur joueur;
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initAnimation();
 
 
+        environnement = new Environnement();
+
         Terrain terrain = new Terrain();
         TerrrainVue terrrainVue = new TerrrainVue(terrain, tilepane);
 
-        joueur = new Joueur(100, 100 , 1); // Position initiale
-        joueur.actualisationDuPersonnage(PanePrincipal);
+        faust = new Joueur(environnement);
+        faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal , gameLoop);
+        this.PanePrincipal.getChildren().add(faustVue);
 
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
@@ -53,13 +57,13 @@ public class Controleur implements Initializable {
     private void gererToucheClavier(KeyEvent event) {
         switch (event.getCode()){
             case Z :
-                joueur.setEnHaut(true);
+                faust.setEnHaut(true);
                 break;
             case Q :
-                joueur.setaGauche(true);
+                faust.setaGauche(true);
                 break;
             case D :
-                joueur.setaDroite(true);
+                faust.setaDroite(true);
                 break;
 
         }
@@ -73,13 +77,13 @@ public class Controleur implements Initializable {
     private void resetDirection(KeyEvent event) {
         switch (event.getCode()){
             case Z :
-                joueur.setEnHaut(false);
+                faust.setEnHaut(false);
                 break;
             case Q :
-                joueur.setaGauche(false);
+                faust.setaGauche(false);
                 break;
             case D :
-                joueur.setaDroite(false);
+                faust.setaDroite(false);
                 break;
 
         }
@@ -91,9 +95,9 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-            joueur.direction();
+            environnement.getFaust().direction();
             collision();
-            joueur.applyGravity();
+            environnement.getFaust().applyGravity();
 
         }));
         gameLoop.getKeyFrames().add(kf);
