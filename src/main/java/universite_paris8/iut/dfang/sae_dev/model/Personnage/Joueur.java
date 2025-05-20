@@ -2,8 +2,6 @@ package universite_paris8.iut.dfang.sae_dev.model.Personnage;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
@@ -11,8 +9,13 @@ import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 public class Joueur {
     private IntegerProperty xPos , yPos ;
     private int ID ;
-    private int direction ;
+    private boolean aDroite , aGauche , enHaut;
     private int vitesse = 1;
+    private int GROUND_LEVEL = 150;
+    private double velocityY ;
+    private double gravity = 0.5 ;
+    private int jumpStrength = -7 ;
+
 
     public Joueur(int x , int y , int vitesse){
         this.xPos = new SimpleIntegerProperty(x);
@@ -25,22 +28,48 @@ public class Joueur {
         perso.afficherpersonnage(this, pane);
     }
 
-    public void setDirection(int direction){
-        this.direction = direction ;
-        System.out.println("joueur " + this.direction);
+
+    public void direction() {
+        if (aDroite) {
+            this.xPos.set(this.xPos.get() + this.vitesse);
+        }
+        if (aGauche) {
+            this.xPos.set(this.xPos.get() - this.vitesse);
+        }
+        if (enHaut) {
+            this.handleJump();
+        }
     }
 
 
-    public void Direction() {
-        if(this.direction == 1){//Droite
-            xPosProperty().setValue(xPosProperty().getValue() + this.vitesse);
-        } else if (this.direction == 2) {//Gauche
-            xPosProperty().setValue(xPosProperty().getValue() - this.vitesse);
-        } else if (this.direction == 3) {//Haut
-            yPosProperty().setValue(yPosProperty().getValue() - this.vitesse);
-        } else if(this.direction == 4){//Bas
-            yPosProperty().setValue(yPosProperty().getValue() + this.vitesse);
+
+    public void handleJump() {
+        if (this.getyPos() == GROUND_LEVEL) {
+            this.velocityY = jumpStrength;
         }
+    }
+
+    public void applyGravity() {
+        this.velocityY += gravity;
+        this.setyPos((int) (this.getyPos() + this.velocityY));
+
+        if (this.getyPos() > GROUND_LEVEL) {
+            this.setyPos(GROUND_LEVEL);
+            this.velocityY = 0;
+        }
+    }
+
+
+    public void setaDroite(boolean aDroite) {
+        this.aDroite = aDroite;
+    }
+
+    public void setaGauche(boolean aGauche) {
+        this.aGauche = aGauche;
+    }
+
+    public void setEnHaut(boolean enHaut) {
+        this.enHaut = enHaut;
     }
 
     public void setyPos(int yPos) {
@@ -53,10 +82,6 @@ public class Joueur {
 
     public int getxPos() {
         return xPos.get();
-    }
-
-    public int getDirection() {
-        return direction;
     }
 
     public IntegerProperty xPosProperty() {

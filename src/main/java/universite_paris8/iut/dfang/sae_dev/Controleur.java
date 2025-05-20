@@ -1,7 +1,6 @@
 package universite_paris8.iut.dfang.sae_dev;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.net.URL;
@@ -11,8 +10,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
-import org.w3c.dom.ls.LSOutput;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 import universite_paris8.iut.dfang.sae_dev.vue.TerrrainVue;
@@ -52,34 +49,52 @@ public class Controleur implements Initializable {
         PanePrincipal.setOnKeyReleased(this::resetDirection);
         gameLoop.play();
     }
-    //geeihihiugufjhgfrg
 
     private void gererToucheClavier(KeyEvent event) {
-        if (event.getCode() == KeyCode.Z) {
-            joueur.setDirection(3);// Haut
-        } else if (event.getCode() == KeyCode.S) {
-            joueur.setDirection(4); // Bas
-        } else if (event.getCode() == KeyCode.Q) {
-            joueur.setDirection(2); // Gauche
-        } else if (event.getCode() == KeyCode.D) {
-            joueur.setDirection(1); // Droite
+        switch (event.getCode()){
+            case Z :
+                joueur.setEnHaut(true);
+                break;
+            case Q :
+                joueur.setaGauche(true);
+                break;
+            case D :
+                joueur.setaDroite(true);
+                break;
+
         }
     }
+
+    private void collision(){
+
+    }
+
+
     private void resetDirection(KeyEvent event) {
-        joueur.setDirection(0);
+        switch (event.getCode()){
+            case Z :
+                joueur.setEnHaut(false);
+                break;
+            case Q :
+                joueur.setaGauche(false);
+                break;
+            case D :
+                joueur.setaDroite(false);
+                break;
+
+        }
     }
 
     private void initAnimation(){
-
         gameLoop = new Timeline();
         temps = 0 ;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
+            joueur.direction();
+            collision();
+            joueur.applyGravity();
 
-
-            joueur.Direction();
-            System.out.println("gameloop " + joueur.getDirection());
         }));
         gameLoop.getKeyFrames().add(kf);
     }
