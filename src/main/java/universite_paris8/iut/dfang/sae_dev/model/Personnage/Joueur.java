@@ -8,9 +8,8 @@ import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
 
 public class Joueur extends Personnages{
-    private IntegerProperty xPos , yPos ;
     private int ID ;
-    private boolean aDroite , aGauche , enHaut;
+    private boolean aDroite , aGauche ,enHaut;
     private int vitesse = 2;
     private int GROUND_LEVEL = 150;
     private double velocityY ;
@@ -23,20 +22,21 @@ public class Joueur extends Personnages{
         this.vitesse = 1 ;
     }
 
-
     public void direction() {
         if (aDroite) {
-            this.xPos.set(this.xPos.get() + this.vitesse);
+            super.setxPos(super.getxPos() + this.vitesse);
+            System.out.println(super.getxPos());
         }
         if (aGauche) {
-            this.xPos.set(this.xPos.get() - this.vitesse);
+            super.setxPos(super.getxPos() - this.vitesse);
+            System.out.println(super.getxPos());
         }
         if (enHaut) {
             this.handleJump();
+            System.out.println("Jump");
+            System.out.println("y" + super.getyPos());
         }
     }
-
-
 
     public void handleJump() {
         if (this.getyPos() == GROUND_LEVEL) {
@@ -68,27 +68,27 @@ public class Joueur extends Personnages{
     }
 
     public void setyPos(int yPos) {
-        this.yPos.set(yPos);
+        super.setyPos(yPos);
     }
 
     public void setxPos(int xPos) {
-        this.xPos.set(xPos);
+        super.setxPos(xPos);
     }
 
     public int getxPos() {
-        return xPos.get();
+        return super.getxPos();
     }
 
     public IntegerProperty xPosProperty() {
-        return xPos;
+        return super.xPosProperty();
     }
 
     public int getyPos() {
-        return yPos.get();
+        return super.getyPos();
     }
 
     public IntegerProperty yPosProperty() {
-        return yPos;
+        return super.yPosProperty();
     }
 
     public void setVitesse(int vitesse) {

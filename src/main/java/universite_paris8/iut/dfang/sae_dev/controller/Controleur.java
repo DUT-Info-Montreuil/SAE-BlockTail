@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -19,11 +20,15 @@ import universite_paris8.iut.dfang.sae_dev.vue.TerrrainVue;
 
 public class Controleur implements Initializable {
 
+
     private Timeline gameLoop;
     private int temps;
     private Environnement environnement ;
     private Joueur faust ;
     private PersonnagesVue faustVue ;
+
+    @FXML
+    public BorderPane BorderPanePrincipal;
 
     @FXML
     public TilePane tilepane;
@@ -43,50 +48,18 @@ public class Controleur implements Initializable {
         Terrain terrain = new Terrain();
         TerrrainVue terrrainVue = new TerrrainVue(terrain, tilepane);
 
-        faust = new Joueur(environnement);
         faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal , gameLoop);
-        this.PanePrincipal.getChildren().add(faustVue);
 
+        faustVue.affichage(environnement.getFaust(), PanePrincipal);
+
+        PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(environnement.getFaust(), gameLoop));
+        PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(environnement.getFaust(), gameLoop));
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
-        PanePrincipal.setOnKeyPressed(this::gererToucheClavier);
-        PanePrincipal.setOnKeyReleased(this::resetDirection);
+
+
+
         gameLoop.play();
-    }
-
-    private void gererToucheClavier(KeyEvent event) {
-        switch (event.getCode()){
-            case Z :
-                faust.setEnHaut(true);
-                break;
-            case Q :
-                faust.setaGauche(true);
-                break;
-            case D :
-                faust.setaDroite(true);
-                break;
-
-        }
-    }
-
-    private void collision(){
-
-    }
-
-
-    private void resetDirection(KeyEvent event) {
-        switch (event.getCode()){
-            case Z :
-                faust.setEnHaut(false);
-                break;
-            case Q :
-                faust.setaGauche(false);
-                break;
-            case D :
-                faust.setaDroite(false);
-                break;
-
-        }
     }
 
     private void initAnimation(){
@@ -95,8 +68,8 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
+
             environnement.getFaust().direction();
-            collision();
             environnement.getFaust().applyGravity();
 
         }));
