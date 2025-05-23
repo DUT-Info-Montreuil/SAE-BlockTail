@@ -9,7 +9,6 @@ public class KeyPressed implements EventHandler<KeyEvent> {
 
     private Joueur faust;
     private Timeline gameLoop;
-    private boolean aDroite , aGauche , enHaut;
 
     public KeyPressed(Joueur joueur , Timeline gameLoop){
         this.faust = joueur ;
@@ -21,7 +20,6 @@ public class KeyPressed implements EventHandler<KeyEvent> {
         switch (event.getCode()){
             case Z :
                 faust.setEnHaut(true);
-                System.out.println("Haut");
                 break;
             case Q :
                 faust.setaGauche(true);

@@ -15,7 +15,7 @@ import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
-import universite_paris8.iut.dfang.sae_dev.vue.TerrrainVue;
+import universite_paris8.iut.dfang.sae_dev.vue.TerrainVue;
 
 
 public class Controleur implements Initializable {
@@ -46,18 +46,15 @@ public class Controleur implements Initializable {
         environnement = new Environnement();
 
         Terrain terrain = new Terrain();
-        TerrrainVue terrrainVue = new TerrrainVue(terrain, tilepane);
+        TerrainVue terrrainVue = new TerrainVue(terrain, tilepane);
 
         faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal , gameLoop);
-
         faustVue.affichage(environnement.getFaust(), PanePrincipal);
 
         PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(environnement.getFaust(), gameLoop));
         PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(environnement.getFaust(), gameLoop));
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
-
-
 
         gameLoop.play();
     }
@@ -71,7 +68,8 @@ public class Controleur implements Initializable {
 
             environnement.getFaust().direction();
             environnement.getFaust().applyGravity();
-
+            System.out.println("---------------");
+            environnement.getFaust().updateGround();
         }));
         gameLoop.getKeyFrames().add(kf);
     }
