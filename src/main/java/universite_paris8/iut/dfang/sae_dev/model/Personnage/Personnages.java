@@ -67,17 +67,17 @@ public class Personnages {
         return false ;
     }
     public boolean collisionBas(){
-        return this.collisionDroiteBas() || this.collisionGaucheBas();
+        return this.collisionDroiteBas() && this.collisionGaucheBas();
     }
 
     public boolean collisionGaucheHaut(){
         return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+this.vitesse)/16)  ,round((float) ((this.getxPos()-this.vitesse)/16))));
     }
     public boolean collisionGaucheBas(){
-        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+16+this.vitesse)/16) ,round((float) ((this.getxPos()-this.vitesse)/16))));
+        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+15+this.vitesse)/16) ,round((float) ((this.getxPos()-this.vitesse)/16))));
     }
     public boolean collisionDroiteBas(){
-        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+16+this.vitesse)/16) ,round((float) ((this.getxPos()+15+this.vitesse)/16))));
+        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+15+this.vitesse)/16) ,round((float) ((this.getxPos()+15+this.vitesse)/16))));
     }
     public boolean collisionDroiteHaut(){
         return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+this.vitesse)/16)  ,round((float) ((this.getxPos()+15+this.vitesse)/16))));
