@@ -9,4 +9,6 @@ module universite_paris8.iut.dfang.sae_dev {
 
     opens universite_paris8.iut.dfang.sae_dev to javafx.fxml;
     exports universite_paris8.iut.dfang.sae_dev;
+    exports universite_paris8.iut.dfang.sae_dev.controller;
+    opens universite_paris8.iut.dfang.sae_dev.controller to javafx.fxml;
 }

@@ -5,12 +5,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 
-public class TerrrainVue {
+public class TerrainVue {
 
     private Terrain terrain;
     private TilePane tilePane;
 
-    public TerrrainVue(Terrain terrain, TilePane tilePane) {
+    public TerrainVue(Terrain terrain, TilePane tilePane) {
         this.terrain = terrain;
         this.tilePane = tilePane;
         this.createTerrain();
@@ -29,16 +29,15 @@ public class TerrrainVue {
         Image pierre = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/pierre.png").toExternalForm());
 
 
-        tilePane.setPrefSize(terrain.hauteur() * Terrain.TAILLE_TUILES , terrain.largeur() * Terrain.TAILLE_TUILES);
+        tilePane.setPrefSize(terrain.largeur() * Terrain.TAILLE_TUILES , terrain.hauteur() * Terrain.TAILLE_TUILES);
 
 
-        for (int i = 0; i < terrain.largeur() ; i++){
-            for(int j = 0; j < terrain.hauteur() ; j ++ ){
+        for (int i = 0; i < terrain.hauteur() ; i++){
+            for(int j = 0; j < terrain.largeur() ; j ++ ){
                 switch (terrain.codeTuile(i,j)){
                     case 1 :
                         tilePane.getChildren().add(new ImageView(ciel));
                         break ;
-
                     case 2 :
                         tilePane.getChildren().add(new ImageView(herbe));
                         break;
