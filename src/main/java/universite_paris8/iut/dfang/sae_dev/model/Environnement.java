@@ -21,6 +21,11 @@ public class Environnement {
         this.personnages.add(faust);
     }
 
+    public void unTour(){
+        this.getFaust().direction();
+        this.getFaust().appliquerPhysique();
+    }
+
     public Joueur getFaust() {
         return faust;
     }

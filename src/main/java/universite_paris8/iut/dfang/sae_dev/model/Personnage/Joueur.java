@@ -13,7 +13,7 @@ public class Joueur extends Personnages{
 
 
     public Joueur(Environnement environnement){
-        super(100,10 ,environnement, 1) ;
+        super(100,100 ,environnement, 1) ;
     }
 
 
@@ -31,7 +31,7 @@ public class Joueur extends Personnages{
     }
 
     public IntegerProperty xPosProperty() {
-        return super.xPosProperty();
+        return super.xProperty();
     }
 
     public int getyPos() {
@@ -39,7 +39,7 @@ public class Joueur extends Personnages{
     }
 
     public IntegerProperty yPosProperty() {
-        return super.yPosProperty();
+        return super.yProperty();
     }
 
     public int getID() {

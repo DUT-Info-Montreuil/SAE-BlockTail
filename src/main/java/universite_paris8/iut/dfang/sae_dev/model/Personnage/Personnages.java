@@ -7,23 +7,22 @@ import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
-import static java.lang.Math.round;
+
 
 public class Personnages {
 
-    private int largeur, hauteur;
+    private final int HAUTEUR_COLLISION = 16 ,LARGEUR_COLLISION = 16;
 
     private IntegerProperty xPos , yPos ;
     private Environnement environnement ;
 
-    private boolean aDroite , aGauche ,enHaut;
+    private boolean aDroite , aGauche , enHaut , auSol;
 
     private int vitesse ;
     private double velocityY ;
     private double gravity = 0.5 ;
     private int jumpStrength = -5 ;
 
-    private int GROUND_LEVEL ;
 
     public Personnages(int x , int y , Environnement environnement , int vitesse){
         this.xPos = new SimpleIntegerProperty(x);
@@ -33,79 +32,109 @@ public class Personnages {
     }
 
     public void direction() {
-        if (aDroite && collisionDroite()) {
-            this.setxPos(this.getxPos() + this.vitesse);
+        if (aDroite) {
+            deplacerDroite();
         }
-        if (aGauche && collisionGauche()) {
-            this.setxPos(this.getxPos() - this.vitesse);
+        if (aGauche) {
+            deplacerGauche();
         }
         if (enHaut) {
-            this.handleJump();
+            sauter();
+        }
+    }
+
+    public void deplacerDroite() {
+        int nouveauX = xProperty().get() + vitesse;
+        int actuelY = yProperty().get();
+
+        // Vérification des collisions horizontales (limite droite)
+        if (nouveauX + LARGEUR_COLLISION <= this.environnement.getTerrain().largeurMax() &&
+                this.environnement.getTerrain().estAccessible(nouveauX + LARGEUR_COLLISION - 1, actuelY) &&
+                this.environnement.getTerrain().estAccessible(nouveauX + LARGEUR_COLLISION - 1, actuelY + HAUTEUR_COLLISION - 1)) {
+            xProperty().set(nouveauX);
+        }
+    }
+
+    public void deplacerGauche() {
+        int nouveauX = xProperty().get() - vitesse;
+        int currentY = yProperty().get();
+
+        // Vérification des collisions horizontales (limite gauche)
+        if (nouveauX >= 0 &&
+                this.environnement.getTerrain().estAccessible(nouveauX, currentY) &&
+                this.environnement.getTerrain().estAccessible(nouveauX, currentY + HAUTEUR_COLLISION - 1 )) {
+            xProperty().set(nouveauX);
         }
     }
 
 
+    private void sauter() {
+        if (auSol) {
+            velocityY = jumpStrength;
+            auSol = false;
+        }
+    }
 
-    public boolean collisionDroite() {
-        if(collisionBas()){
-            if (collisionDroiteHaut()){
-                return true ;
+
+    public void appliquerPhysique() {
+        velocityY += gravity;
+
+        int nouveauY = yProperty().get() + (int)velocityY;
+        int currentX = xProperty().get();
+
+        if (nouveauY <= 0) {
+            nouveauY = 0;
+            velocityY = 0;
+            auSol = true;
+            yProperty().set(nouveauY);
+            return;
+        }
+
+        if (nouveauY >= this.environnement.getTerrain().hauteurMax()) {
+            nouveauY = this.environnement.getTerrain().hauteurMax();
+            velocityY = 0;
+            yProperty().set(nouveauY);
+            return;
+        }
+
+        boolean collision = false;
+
+        if (velocityY > 0) {
+            int basPersonnage = nouveauY + HAUTEUR_COLLISION;
+
+            boolean solGauche = !this.environnement.getTerrain().estAccessible(currentX, basPersonnage);
+            boolean solDroite = !this.environnement.getTerrain().estAccessible(currentX + LARGEUR_COLLISION - 1, basPersonnage);
+
+
+            if (solGauche || solDroite) {
+                int ligneSol = basPersonnage / Terrain.TAILLE_TUILES;
+                nouveauY = (ligneSol * Terrain.TAILLE_TUILES) - HAUTEUR_COLLISION;
+                velocityY = 0;
+                auSol = true;
+                collision = true;
             }
-        }else if(collisionDroiteBas() || collisionDroiteHaut()){
-            return true ;
-        }
-        return false ;
-    }
-    public boolean collisionGauche(){
-        if(collisionBas()){
-            if (collisionGaucheHaut()){
-                return true ;
+        } else if (velocityY < 0) {
+            boolean plafondGauche = !this.environnement.getTerrain().estAccessible(currentX, nouveauY);
+            boolean plafondDroite = !this.environnement.getTerrain().estAccessible(currentX + LARGEUR_COLLISION - 1, nouveauY);
+
+
+            if (plafondGauche || plafondDroite) {
+                int lignePlafond = nouveauY / Terrain.TAILLE_TUILES;
+                nouveauY = (lignePlafond + 1) * Terrain.TAILLE_TUILES;
+                velocityY = 0;
+                collision = true;
             }
-        }else if(collisionGaucheBas() || collisionGaucheHaut()){
-            return true ;
         }
-        return false ;
-    }
-    public boolean collisionBas(){
-        return this.collisionDroiteBas() && this.collisionGaucheBas();
-    }
 
-    public boolean collisionGaucheHaut(){
-        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+this.vitesse)/16)  ,round((float) ((this.getxPos()-this.vitesse)/16))));
-    }
-    public boolean collisionGaucheBas(){
-        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+15+this.vitesse)/16) ,round((float) ((this.getxPos()-this.vitesse)/16))));
-    }
-    public boolean collisionDroiteBas(){
-        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+15+this.vitesse)/16) ,round((float) ((this.getxPos()+15+this.vitesse)/16))));
-    }
-    public boolean collisionDroiteHaut(){
-        return !(this.environnement.getTerrain().estSolide(round((float) (this.getyPos()+this.vitesse)/16)  ,round((float) ((this.getxPos()+15+this.vitesse)/16))));
-    }
-
-
-
-    public void updateGround(){
-        if(collisionBas()){
-            GROUND_LEVEL = Terrain.TAILLE_TUILES * ((this.getyPos()/16)+1);
+        if (!collision && auSol) {
+            int basPersonnage = yProperty().get() - HAUTEUR_COLLISION - 1;
+            boolean solGauche = !this.environnement.getTerrain().estAccessible(currentX, basPersonnage);
+            boolean solDroite = !this.environnement.getTerrain().estAccessible(currentX + LARGEUR_COLLISION - 1, basPersonnage);
+            if (!solGauche && !solDroite) {
+                auSol = false;
+            }
         }
-    }
-
-    public void handleJump() {
-        if (this.getyPos() == GROUND_LEVEL) {
-            this.velocityY = jumpStrength;
-        }
-    }
-
-
-    public void applyGravity() {
-        this.velocityY += gravity;
-        this.setyPos((int) (this.getyPos() + this.velocityY));
-
-        if (this.getyPos() > GROUND_LEVEL) {
-            this.setyPos(GROUND_LEVEL);
-            this.velocityY = 0;
-        }
+        yProperty().set(nouveauY);
     }
 
     public void setaDroite(boolean aDroite) {
@@ -122,11 +151,11 @@ public class Personnages {
 
 
 
-    public IntegerProperty yPosProperty(){
+    public IntegerProperty yProperty(){
         return this.yPos ;
     }
 
-    public IntegerProperty xPosProperty() {
+    public IntegerProperty xProperty() {
         return this.xPos;
     }
 
@@ -146,7 +175,4 @@ public class Personnages {
         this.xPos.set(xPos);
     }
 
-    public int getGROUND_LEVEL() {
-        return GROUND_LEVEL;
-    }
 }

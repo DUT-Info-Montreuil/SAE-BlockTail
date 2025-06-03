@@ -66,10 +66,8 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
 
-            environnement.getFaust().direction();
-            environnement.getFaust().applyGravity();
+            environnement.unTour();
             System.out.println("---------------");
-            environnement.getFaust().updateGround();
         }));
         gameLoop.getKeyFrames().add(kf);
     }
