@@ -14,7 +14,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
-import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
+import universite_paris8.iut.dfang.sae_dev.vue.JoueurVue;
 import universite_paris8.iut.dfang.sae_dev.vue.TerrainVue;
 
 
@@ -25,7 +25,7 @@ public class Controleur implements Initializable {
     private int temps;
     private Environnement environnement ;
     private Joueur faust ;
-    private PersonnagesVue faustVue ;
+    private JoueurVue faustVue ;
 
     @FXML
     public BorderPane BorderPanePrincipal;
@@ -39,24 +39,11 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         initAnimation();
-
-
         environnement = new Environnement();
-
         Terrain terrain = new Terrain();
         TerrainVue terrrainVue = new TerrainVue(terrain, tilepane);
-
-        faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal , gameLoop);
-        faustVue.affichage(environnement.getFaust(), PanePrincipal);
-
-        PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(environnement.getFaust(), gameLoop));
-        PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(environnement.getFaust(), gameLoop));
-        PanePrincipal.setFocusTraversable(true);
-        PanePrincipal.requestFocus();
-
-        gameLoop.play();
+        environnement.initialize(PanePrincipal , gameLoop);
     }
 
     private void initAnimation(){

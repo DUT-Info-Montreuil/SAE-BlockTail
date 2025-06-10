@@ -2,11 +2,8 @@ package universite_paris8.iut.dfang.sae_dev.model.Personnage;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
-import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
-
 
 
 public class Personnages {
@@ -21,7 +18,7 @@ public class Personnages {
     private int vitesse ;
     private double velocityY ;
     private double gravity = 0.5 ;
-    private int jumpStrength = -5 ;
+    private int jumpStrength = -6 ;
 
 
     public Personnages(int x , int y , Environnement environnement , int vitesse){
@@ -47,7 +44,6 @@ public class Personnages {
         int nouveauX = xProperty().get() + vitesse;
         int actuelY = yProperty().get();
 
-        // Vérification des collisions horizontales (limite droite)
         if (nouveauX + LARGEUR_COLLISION <= this.environnement.getTerrain().largeurMax() &&
                 this.environnement.getTerrain().estAccessible(nouveauX + LARGEUR_COLLISION - 1, actuelY) &&
                 this.environnement.getTerrain().estAccessible(nouveauX + LARGEUR_COLLISION - 1, actuelY + HAUTEUR_COLLISION - 1)) {
@@ -59,14 +55,12 @@ public class Personnages {
         int nouveauX = xProperty().get() - vitesse;
         int currentY = yProperty().get();
 
-        // Vérification des collisions horizontales (limite gauche)
         if (nouveauX >= 0 &&
                 this.environnement.getTerrain().estAccessible(nouveauX, currentY) &&
                 this.environnement.getTerrain().estAccessible(nouveauX, currentY + HAUTEUR_COLLISION - 1 )) {
             xProperty().set(nouveauX);
         }
     }
-
 
     private void sauter() {
         if (auSol) {
