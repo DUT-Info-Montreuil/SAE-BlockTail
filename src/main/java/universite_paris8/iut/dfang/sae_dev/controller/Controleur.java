@@ -11,11 +11,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import org.controlsfx.control.PropertySheet;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
+import universite_paris8.iut.dfang.sae_dev.vue.InventaireVue;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 import universite_paris8.iut.dfang.sae_dev.vue.TerrainVue;
+import universite_paris8.iut.dfang.sae_dev.model.itemCollection;
+
+import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Block.*;
+import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Divers.*;
+import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Arme.*;
 
 
 public class Controleur implements Initializable {
@@ -36,6 +43,15 @@ public class Controleur implements Initializable {
     @FXML
     public Pane PanePrincipal;
 
+    @FXML
+    public TilePane caseInventaire;
+
+    @FXML
+    public TilePane items;
+
+    @FXML
+    public Pane contienInventaire ;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,10 +67,18 @@ public class Controleur implements Initializable {
         faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal , gameLoop);
         faustVue.affichage(environnement.getFaust(), PanePrincipal);
 
+        caseInventaire.setPrefSize(10 * 16, 2 * 16);
+        items.setPrefSize(10 * 16, 2 * 16);
+
+        environnement.getFaust().remplireInventaire(terre);
+
+        InventaireVue inv = new InventaireVue(caseInventaire  , environnement.getFaust() , items);
+
         PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(environnement.getFaust(), gameLoop));
         PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(environnement.getFaust(), gameLoop));
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
+
 
         gameLoop.play();
     }
@@ -67,7 +91,8 @@ public class Controleur implements Initializable {
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
 
             environnement.unTour();
-            System.out.println("---------------");
+
+
         }));
         gameLoop.getKeyFrames().add(kf);
     }

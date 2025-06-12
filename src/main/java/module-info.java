@@ -6,6 +6,7 @@ module universite_paris8.iut.dfang.sae_dev {
     requires org.controlsfx.controls;
     requires eu.hansolo.tilesfx;
     requires jdk.jdi;
+    requires jdk.jshell;
 
     opens universite_paris8.iut.dfang.sae_dev to javafx.fxml;
     exports universite_paris8.iut.dfang.sae_dev;

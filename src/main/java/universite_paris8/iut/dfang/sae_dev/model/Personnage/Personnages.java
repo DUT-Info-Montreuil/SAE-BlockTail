@@ -4,9 +4,11 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
+import universite_paris8.iut.dfang.sae_dev.model.Item;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
+import java.util.Arrays;
 
 
 public class Personnages {
@@ -22,6 +24,7 @@ public class Personnages {
     private double velocityY ;
     private double gravity = 0.5 ;
     private int jumpStrength = -5 ;
+    private Item[] inv ;
 
 
     public Personnages(int x , int y , Environnement environnement , int vitesse){
@@ -29,6 +32,7 @@ public class Personnages {
         this.yPos = new SimpleIntegerProperty(y);
         this.environnement = environnement;
         this.vitesse = vitesse ;
+        this.inv = new Item[20];
     }
 
     public void direction() {
@@ -136,6 +140,42 @@ public class Personnages {
         }
         yProperty().set(nouveauY);
     }
+
+    public Item[] getInv() {
+        return inv;
+    }
+
+    public void ajouteAInventaire(Item item){
+
+
+
+        for (int i = 0 ; i < inv.length ; i ++ ){
+            if(inv[i] == null ){
+                inv[i] = item;
+            }
+        }
+    }
+
+
+    public boolean inventairePlen(){
+        for (int i = 0 ; i < inv.length ; i ++ ){
+            if(inv[i] == null ){
+                return false ;
+            }
+        }
+        return true ;
+    }
+
+    public void remplireInventaire(Item i){
+        while (!inventairePlen()){
+            ajouteAInventaire(i);
+        }
+    }
+
+    public void afficheInv(){
+        System.out.println(Arrays.toString(this.inv));
+    }
+
 
     public void setaDroite(boolean aDroite) {
         this.aDroite = aDroite;

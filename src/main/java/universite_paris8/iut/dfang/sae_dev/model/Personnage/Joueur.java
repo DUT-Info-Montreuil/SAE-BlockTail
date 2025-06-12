@@ -13,7 +13,7 @@ public class Joueur extends Personnages{
 
 
     public Joueur(Environnement environnement){
-        super(100,100 ,environnement, 1) ;
+        super(100,100 ,environnement, 2) ;
     }
 
 

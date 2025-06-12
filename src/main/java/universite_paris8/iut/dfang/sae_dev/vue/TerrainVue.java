@@ -19,14 +19,16 @@ public class TerrainVue {
     public void createTerrain(){
 
 
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/ciel.png").toExternalForm());
-        Image herbe = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/herbe.png").toExternalForm());
-        Image terre = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/terre.png").toExternalForm());
-        Image feuille = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/feuille.png").toExternalForm());
-        Image fer = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/fer.png").toExternalForm());
-        Image charbon = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/charbon.png").toExternalForm());
-        Image bois = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/bois.png").toExternalForm());
-        Image pierre = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/pierre.png").toExternalForm());
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/ciel.png").toExternalForm());
+        Image herbe = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/herbe.png").toExternalForm());
+        Image terre = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/terre.png").toExternalForm());
+        Image feuille = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/feuille.png").toExternalForm());
+        Image fer = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/fer.png").toExternalForm());
+        Image charbon = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/charbon.png").toExternalForm());
+        Image bois = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/bois.png").toExternalForm());
+        Image pierre = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/pierre.png").toExternalForm());
+        Image Dcoin = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/Dcoin.png").toExternalForm());
+        Image Gcoin = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/block/Gcoin.png").toExternalForm());
 
 
         tilePane.setPrefSize(terrain.largeur() * Terrain.TAILLE_TUILES , terrain.hauteur() * Terrain.TAILLE_TUILES);
@@ -39,8 +41,10 @@ public class TerrainVue {
                         tilePane.getChildren().add(new ImageView(ciel));
                         break ;
                     case 2 :
-                        tilePane.getChildren().add(new ImageView(herbe));
-                        break;
+
+                            tilePane.getChildren().add(new ImageView(herbe));
+
+                            break;
                     case 3 :
                         tilePane.getChildren().add(new ImageView(terre));
                         break;
