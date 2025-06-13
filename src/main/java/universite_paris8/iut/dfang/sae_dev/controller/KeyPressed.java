@@ -28,6 +28,8 @@ public class KeyPressed implements EventHandler<KeyEvent> {
             case D :
                 faust.setaDroite(true);
                 break;
+            case A:
+                faust.setPv(1);
         }
     }
 }

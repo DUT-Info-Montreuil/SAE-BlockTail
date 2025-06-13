@@ -164,6 +164,10 @@ public class Personnages {
         return this.xPos.get();
     }
 
+    public int getPv(){
+        return this.pv;
+    }
+
     public void setyPos(int yPos) {
         this.yPos.set(yPos);
     }
@@ -172,4 +176,7 @@ public class Personnages {
         this.xPos.set(xPos);
     }
 
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
 }

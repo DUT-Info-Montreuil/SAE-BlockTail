@@ -44,7 +44,7 @@ public class Controleur implements Initializable {
         initAnimation();
         environnement = new Environnement();
         environnementVue = new EnvironnementVue(environnement, tilepane);
-        environnementVue.initializeVue(PanePrincipal, gameLoop);
+        environnementVue.initializeVue(PanePrincipal);
         environnement.initialize(PanePrincipal , gameLoop);
     }
 
@@ -55,6 +55,7 @@ public class Controleur implements Initializable {
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
             environnement.unTour();
+            environnementVue.unTourVue();
             System.out.println("---------------");
         }));
         gameLoop.getKeyFrames().add(kf);

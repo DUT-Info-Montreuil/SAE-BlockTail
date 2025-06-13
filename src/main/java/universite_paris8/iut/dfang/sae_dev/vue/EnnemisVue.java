@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class EnnemisVue extends ImageView{
     private Image personnageImg = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/Ennemis.png").toExternalForm());
     private ArrayList<Image> images = new ArrayList<Image>();
-    public EnnemisVue(Ennemis ennemis, Pane pane , Timeline gameLoop) {
+    public EnnemisVue(Ennemis ennemis, Pane pane) {
         super();
         this.setImage(personnageImg);
     }

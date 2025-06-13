@@ -36,6 +36,7 @@ public class Environnement {
             ennemi.direction();
             ennemi.appliquerPhysique();
             ennemi.deplacement();
+            ennemi.toucher();
         }
         if(compteur >= 60){
             compteur = 0;

@@ -9,10 +9,13 @@ public class Ennemis extends Personnages{
     private Environnement environnement ;
 
     public Ennemis (Environnement environnement){
-        super (100 ,100 , 100 , environnement , 1);
+        super (100 ,500 , 100 , environnement , 1);
         this.environnement = environnement ;
         ID ++ ;
     }
+
+
+
 
     public void deplacement(){
         int distanceX = this.getxPos() - environnement.getFaust().getxPos() ;
@@ -31,8 +34,15 @@ public class Ennemis extends Personnages{
                     this.sauter();
                 }
             }
-        }else{
+        }
+    }
 
+    public void toucher(){
+        int distanceX = this.getxPos() - environnement.getFaust().getxPos() ;
+        int distanceY = this.getyPos() - environnement.getFaust().getyPos() ;
+
+        if (distanceX == 0 && distanceY == 0){
+            environnement.getFaust().setPv(environnement.getFaust().getPv() - 1);
         }
     }
 

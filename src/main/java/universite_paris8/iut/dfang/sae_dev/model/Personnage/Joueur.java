@@ -12,6 +12,8 @@ public class Joueur extends Personnages{
 
 
 
+
+
     public void setyPos(int yPos) {
         super.setyPos(yPos);
     }
