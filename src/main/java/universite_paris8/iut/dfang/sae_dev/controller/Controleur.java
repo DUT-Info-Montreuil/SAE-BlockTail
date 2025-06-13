@@ -70,7 +70,7 @@ public class Controleur implements Initializable {
         caseInventaire.setPrefSize(10 * 16, 2 * 16);
         items.setPrefSize(10 * 16, 2 * 16);
 
-        environnement.getFaust().remplireInventaire(terre);
+        environnement.getFaust().getInv().remplireInventaire(terre);
 
         InventaireVue inv = new InventaireVue(caseInventaire  , environnement.getFaust() , items);
 

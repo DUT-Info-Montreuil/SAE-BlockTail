@@ -39,7 +39,7 @@ public class InventaireVue {
         for (int i = 0; i < 20; i++) {
 
 
-            Image item = new Image(getClass().getResource(perso.getInv()[i].getTexture()).toExternalForm());
+            Image item = new Image(getClass().getResource(perso.getInv().getItem().getTexture()).toExternalForm());
             ImageView itemImage = new ImageView(item);
 
             items.getChildren().add(itemImage);
