@@ -20,12 +20,15 @@ public class Personnages {
     private double gravity = 0.5 ;
     private int jumpStrength = -6 ;
 
+    private int pv ;
 
-    public Personnages(int x , int y , Environnement environnement , int vitesse){
+
+    public Personnages(int pv, int x, int y, Environnement environnement , int vitesse){
         this.xPos = new SimpleIntegerProperty(x);
         this.yPos = new SimpleIntegerProperty(y);
         this.environnement = environnement;
         this.vitesse = vitesse ;
+        this.pv = pv ;
     }
 
     public void direction() {
@@ -62,7 +65,7 @@ public class Personnages {
         }
     }
 
-    private void sauter() {
+    public void sauter() {
         if (auSol) {
             velocityY = jumpStrength;
             auSol = false;

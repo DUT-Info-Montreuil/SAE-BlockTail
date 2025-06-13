@@ -16,8 +16,8 @@ public class JoueurVue extends ImageView{
         this.setImage(personnageImg);
     }
     public void affichage(Joueur joueur , Pane pane){
-        this.translateXProperty().bind(joueur.xPosProperty());
-        this.translateYProperty().bind(joueur.yPosProperty());
+        this.translateXProperty().bind(joueur.xProperty());
+        this.translateYProperty().bind(joueur.yProperty());
         pane.getChildren().add(this);
     }
 }

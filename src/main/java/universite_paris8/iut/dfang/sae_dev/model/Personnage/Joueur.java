@@ -5,11 +5,9 @@ import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 
 
 public class Joueur extends Personnages{
-    private int ID ;
-
 
     public Joueur(Environnement environnement){
-        super(100,100 ,environnement, 2) ;
+        super(100, 100,100 ,environnement, 2) ;
     }
 
 
@@ -26,19 +24,7 @@ public class Joueur extends Personnages{
         return super.getxPos();
     }
 
-    public IntegerProperty xPosProperty() {
-        return super.xProperty();
-    }
-
     public int getyPos() {
         return super.getyPos();
-    }
-
-    public IntegerProperty yPosProperty() {
-        return super.yProperty();
-    }
-
-    public int getID() {
-        return ID;
     }
 }

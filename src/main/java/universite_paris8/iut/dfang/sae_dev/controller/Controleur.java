@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
+import universite_paris8.iut.dfang.sae_dev.vue.EnvironnementVue;
 import universite_paris8.iut.dfang.sae_dev.vue.JoueurVue;
 import universite_paris8.iut.dfang.sae_dev.vue.TerrainVue;
 
@@ -24,6 +25,7 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     private Environnement environnement ;
+    private EnvironnementVue environnementVue ;
     private Joueur faust ;
     private JoueurVue faustVue ;
 
@@ -41,8 +43,8 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initAnimation();
         environnement = new Environnement();
-        Terrain terrain = new Terrain();
-        TerrainVue terrrainVue = new TerrainVue(terrain, tilepane);
+        environnementVue = new EnvironnementVue(environnement, tilepane);
+        environnementVue.initializeVue(PanePrincipal, gameLoop);
         environnement.initialize(PanePrincipal , gameLoop);
     }
 
@@ -52,7 +54,6 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
-
             environnement.unTour();
             System.out.println("---------------");
         }));
