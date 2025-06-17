@@ -9,4 +9,5 @@ public interface Item {
     public String toString();
     public int getId();
     public String getTexture();
+    public int getType();
 }

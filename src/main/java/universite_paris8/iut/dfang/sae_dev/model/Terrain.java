@@ -95,6 +95,14 @@ public class Terrain {
     public int largeurMax(){
         return largeur() * 16 ;
     }
+
+    public void casseBlock(int c ,int l){
+        codesTuiles[c][l] = 1;
+    }
+
+    public void placeBlock(int c ,int l , int block){
+        codesTuiles[c][l] = block;
+    }
 }
 
 

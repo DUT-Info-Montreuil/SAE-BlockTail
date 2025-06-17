@@ -3,6 +3,7 @@ package universite_paris8.iut.dfang.sae_dev.model.Personnage;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
@@ -12,8 +13,8 @@ public class Joueur extends Personnages{
     private int ID ;
 
 
-    public Joueur(Environnement environnement){
-        super(100,100 ,environnement, 2) ;
+    public Joueur(Environnement environnement , TilePane Items , TilePane caseInv){
+        super(100,100 ,environnement, 2 , Items , caseInv   ) ;
     }
 
 

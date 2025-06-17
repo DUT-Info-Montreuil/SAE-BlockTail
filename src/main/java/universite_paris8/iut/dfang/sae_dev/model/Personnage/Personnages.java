@@ -1,5 +1,6 @@
 package universite_paris8.iut.dfang.sae_dev.model.Personnage;
 
+import eu.hansolo.tilesfx.Tile;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.TilePane;
@@ -28,12 +29,12 @@ public class Personnages {
     private Inventaire inv ;
 
 
-    public Personnages(int x , int y , Environnement environnement , int vitesse){
+    public Personnages(int x , int y , Environnement environnement , int vitesse , TilePane items , TilePane caseInv){
         this.xPos = new SimpleIntegerProperty(x);
         this.yPos = new SimpleIntegerProperty(y);
         this.environnement = environnement;
         this.vitesse = vitesse ;
-        this.inv = new Inventaire(20);
+        this.inv = new Inventaire(20 , items , caseInv);
     }
 
     public void direction() {
@@ -159,7 +160,9 @@ public class Personnages {
         this.enHaut = enHaut;
     }
 
-
+    public Environnement getEnvironnement() {
+        return environnement;
+    }
 
     public IntegerProperty yProperty(){
         return this.yPos ;

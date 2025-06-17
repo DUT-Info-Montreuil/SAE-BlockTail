@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -59,12 +60,11 @@ public class Controleur implements Initializable {
         initAnimation();
 
 
-        environnement = new Environnement();
+        environnement = new Environnement( items , caseInventaire , new Terrain());
 
-        Terrain terrain = new Terrain();
-        TerrainVue terrrainVue = new TerrainVue(terrain, tilepane);
+        TerrainVue terrrainVue = new TerrainVue(environnement.getTerrain(), tilepane);
 
-        faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal , gameLoop);
+        faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal);
         faustVue.affichage(environnement.getFaust(), PanePrincipal);
 
         caseInventaire.setPrefSize(10 * 16, 2 * 16);
@@ -74,11 +74,14 @@ public class Controleur implements Initializable {
 
         InventaireVue inv = new InventaireVue(caseInventaire  , environnement.getFaust() , items);
 
-        PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(environnement.getFaust(), gameLoop));
-        PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(environnement.getFaust(), gameLoop));
+        PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed(environnement.getFaust()));
+        PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased(environnement.getFaust()));
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
 
+        contienInventaire.addEventHandler(MouseEvent.MOUSE_CLICKED , new MouseClickInv());
+
+        tilepane.addEventHandler(MouseEvent.MOUSE_CLICKED , new MouseClickBlock(environnement.getTerrain() ,environnement.getFaust() , terrrainVue));
 
         gameLoop.play();
     }

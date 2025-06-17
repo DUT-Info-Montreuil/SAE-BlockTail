@@ -9,11 +9,9 @@ import universite_paris8.iut.dfang.sae_dev.model.Personnage.Personnages;
 public class KeyReleased implements EventHandler<KeyEvent> {
 
     private Joueur faust ;
-    private Timeline gameLoop ;
 
-    public KeyReleased(Joueur joueur , Timeline gameLoop){
+    public KeyReleased(Joueur joueur){
         this.faust = joueur ;
-        this.gameLoop = gameLoop ;
     }
 
     @Override

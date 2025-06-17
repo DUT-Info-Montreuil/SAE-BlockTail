@@ -1,22 +1,32 @@
 package universite_paris8.iut.dfang.sae_dev.model;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
+import universite_paris8.iut.dfang.sae_dev.model.Personnage.Personnages;
 
 import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Divers.*;
 
-public class Inventaire {
+public class Inventaire implements EventHandler<MouseEvent> {
 
     private Item[] inv ;
     private int caseSelectionnee ;
+    private TilePane items , caseInv ;
+    private Personnages joueur ;
 
-    public Inventaire( int  tailleInv ) {
+
+    public Inventaire(int  tailleInv , TilePane items , TilePane caseInv) {
         this.caseSelectionnee = 1;
         this.inv = new Item[tailleInv];
+        this.joueur = joueur;
+        this.items = items;
+        this.caseInv = caseInv;
     }
 
     public int getTailleInv(){
         return this.inv.length;
     }
 
-    public Item[] getInv() {
+    public Item[] getInvTab() {
         return inv;
     }
 
@@ -52,4 +62,16 @@ public class Inventaire {
         }
     }
 
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+        double cliqueX , cliqueY ;
+
+        cliqueX = mouseEvent.getSceneX();
+        cliqueY = mouseEvent.getSceneY();
+        System.out.println(cliqueX + "\n" + cliqueY);
+    }
+
+    public int getCaseSelectionnee() {
+        return caseSelectionnee;
+    }
 }

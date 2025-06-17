@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import jdk.jshell.ImportSnippet;
 
+import java.security.PrivateKey;
+
 public class itemCollection {
 
 
@@ -13,27 +15,29 @@ public class itemCollection {
 
 
 
-        terre(        "Block de terre"     , 1 , "/universite_paris8/iut/dfang/sae_dev/item/terreItem.png"       ),
-        herbe(        "Block d'herbe "     , 2 , "/universite_paris8/iut/dfang/sae_dev/item/herbeItem.png"       ),
-        pierre(       "Block de pierre"    , 3 , "/universite_paris8/iut/dfang/sae_dev/item/pierreItem.png"      ),
-        charbon(      "minerai de charbon" , 4 , "/universite_paris8/iut/dfang/sae_dev/item/charbonItem.png"     ),
-        fer(          "minerai de fer"     , 5 , "/universite_paris8/iut/dfang/sae_dev/item/ferItem.png"         ),
-        bois(         "Block de bois"      , 6 , "/universite_paris8/iut/dfang/sae_dev/item/boisItem.png"        ),
-        planche(      "Block de planche"   , 7 , "/universite_paris8/iut/dfang/sae_dev/item/plancheItem.png"     ),
-        feuille(      "Block de feuille"   , 8 , "/universite_paris8/iut/dfang/sae_dev/item/feuilleItem.png"     ),
-        brique_pierre("brique de pierre "  , 9 , "/universite_paris8/iut/dfang/sae_dev/item/briquePierreItem.png"),
+        terre(        "Block de terre"     , 1 , "/universite_paris8/iut/dfang/sae_dev/item/terreItem.png"        , 3 ),
+        herbe(        "Block d'herbe "     , 2 , "/universite_paris8/iut/dfang/sae_dev/item/herbeItem.png"        , 2 ),
+        pierre(       "Block de pierre"    , 3 , "/universite_paris8/iut/dfang/sae_dev/item/pierreItem.png"       , 6 ),
+        charbon(      "minerai de charbon" , 4 , "/universite_paris8/iut/dfang/sae_dev/item/charbonItem.png"      , 7 ),
+        fer(          "minerai de fer"     , 5 , "/universite_paris8/iut/dfang/sae_dev/item/ferItem.png"          , 8 ),
+        bois(         "Block de bois"      , 6 , "/universite_paris8/iut/dfang/sae_dev/item/boisItem.png"         , 5 ),
+        planche(      "Block de planche"   , 7 , "/universite_paris8/iut/dfang/sae_dev/item/plancheItem.png"      , 9 ),
+        feuille(      "Block de feuille"   , 8 , "/universite_paris8/iut/dfang/sae_dev/item/feuilleItem.png"      , 4 ),
+        brique_pierre("brique de pierre "  , 9 , "/universite_paris8/iut/dfang/sae_dev/item/briquePierreItem.png" , 10),
         ;
 
 
         private final String nom;
         private final int id;
         private final String texture;
+        private final int codeBlock ;
 
 
-        Block(String nom, int id , String texture){
+        Block(String nom, int id , String texture, int codeBlock){
             this.nom = nom;
             this.id = id;
             this.texture = texture;
+            this.codeBlock = codeBlock;
         }
 
         @Override
@@ -45,6 +49,15 @@ public class itemCollection {
         @Override
         public String getTexture() {
             return this.texture;
+        }
+
+        public int getCodeBlock() {
+            return codeBlock;
+        }
+
+        @Override
+        public int getType() {
+            return 0;
         }
     }
 
@@ -82,6 +95,11 @@ public class itemCollection {
         public String getTexture() {
             return null;
         }
+
+        @Override
+        public int getType() {
+            return 1;
+        }
     }
 
 
@@ -110,6 +128,11 @@ public class itemCollection {
         @Override
         public String getTexture() {
             return this.texture;
+        }
+
+        @Override
+        public int getType() {
+            return 2;
         }
     }
 }

@@ -11,7 +11,9 @@ import java.util.ArrayList;
 public class PersonnagesVue extends ImageView{
     private Image personnageImg = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/personnage.png").toExternalForm());
     private ArrayList<Image> images = new ArrayList<Image>();
-    public PersonnagesVue(Joueur joueur, Pane pane , Timeline gameLoop) {
+
+
+    public PersonnagesVue(Joueur joueur, Pane pane ) {
         super();
         this.setImage(personnageImg);
     }
@@ -20,8 +22,5 @@ public class PersonnagesVue extends ImageView{
         this.translateYProperty().bind(joueur.yPosProperty());
         pane.getChildren().add(this);
     }
-
-
-
 
 }

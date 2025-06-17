@@ -2,12 +2,15 @@ package universite_paris8.iut.dfang.sae_dev.controller;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class MouseClick implements EventHandler<KeyEvent> {
+public class MouseClickInv implements EventHandler<MouseEvent> {
 
     @Override
-    public void handle(KeyEvent keyEvent) {
-
+    public void handle(MouseEvent mouseEvent) {
+//        if(mouseEvent.)
     }
 }
+
+
