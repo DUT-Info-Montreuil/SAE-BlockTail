@@ -81,6 +81,8 @@ public class Controleur implements Initializable {
 
         contienInventaire.addEventHandler(MouseEvent.MOUSE_CLICKED , new MouseClickInv());
 
+        environnement.getFaust().getInv().aff();
+
         tilepane.addEventHandler(MouseEvent.MOUSE_CLICKED , new MouseClickBlock(environnement.getTerrain() ,environnement.getFaust() , terrrainVue));
 
         gameLoop.play();

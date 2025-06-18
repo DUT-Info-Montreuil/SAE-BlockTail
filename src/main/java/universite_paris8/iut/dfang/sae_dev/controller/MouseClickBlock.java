@@ -35,23 +35,19 @@ public class MouseClickBlock implements EventHandler<MouseEvent> {
 
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-            System.out.println(mouseEvent.getSceneX() + "  " + mouseEvent.getSceneY() + "\n");
-            System.out.println((int) ceil(mouseEvent.getSceneX() / 16) + "  " + (int) ceil(mouseEvent.getSceneY() / 16) + "\n");
-            System.out.println(terrain.codeTuile((int) ceil(mouseEvent.getSceneY() / 16) - 1, (int) ceil(mouseEvent.getSceneX() / 16) - 1));
+//            p.getInv().ajouteAInventaire();
             terrain.casseBlock((int) ceil(mouseEvent.getSceneY() / 16) - 1 , (int) ceil(mouseEvent.getSceneX() / 16) - 1);
-            System.out.println("done");
-            System.out.println(terrain.codeTuile((int) ceil(mouseEvent.getSceneY() / 16) - 1, (int) ceil(mouseEvent.getSceneX() / 16) - 1));
-            terrainVue.updateBlockTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , (int) ceil(mouseEvent.getSceneX() / 16) - 1 , 1 );
+            terrainVue.removeTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , ((int) ceil(mouseEvent.getSceneX() / 16) - 1)  );
+            terrainVue.updateBlockTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , (int) ceil(mouseEvent.getSceneX() / 16) - 1  );
 
         }
         else if (mouseEvent.getButton() == MouseButton.SECONDARY){
             itemCollection.Block i ;
             if (p.getInv().getInvTab()[p.getInv().getCaseSelectionnee()].getType() == 0){
                 i = (itemCollection.Block) p.getInv().getInvTab()[p.getInv().getCaseSelectionnee()];
-                System.out.println(terrain.codeTuile((int) ceil(mouseEvent.getSceneY() / 16) - 1, (int) ceil(mouseEvent.getSceneX() / 16) - 1));
                 terrain.placeBlock((int) ceil(mouseEvent.getSceneY() / 16) - 1 , (int) ceil(mouseEvent.getSceneX() / 16) - 1 , i.getCodeBlock() );
-                System.out.println(terrain.codeTuile((int) ceil(mouseEvent.getSceneY() / 16) - 1, (int) ceil(mouseEvent.getSceneX() / 16) - 1));
-                terrainVue.updateBlockTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , (int) ceil(mouseEvent.getSceneX() / 16) - 1 , i.getCodeBlock() );
+                terrainVue.removeTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , ((int) ceil(mouseEvent.getSceneX() / 16) - 1)  );
+                terrainVue.updateBlockTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , (int) ceil(mouseEvent.getSceneX() / 16) - 1 );
 
 
             }

@@ -1,12 +1,5 @@
 package universite_paris8.iut.dfang.sae_dev.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import jdk.jshell.ImportSnippet;
-
-import java.security.PrivateKey;
-
 public class itemCollection {
 
 
@@ -18,8 +11,8 @@ public class itemCollection {
         terre(        "Block de terre"     , 1 , "/universite_paris8/iut/dfang/sae_dev/item/terreItem.png"        , 3 ),
         herbe(        "Block d'herbe "     , 2 , "/universite_paris8/iut/dfang/sae_dev/item/herbeItem.png"        , 2 ),
         pierre(       "Block de pierre"    , 3 , "/universite_paris8/iut/dfang/sae_dev/item/pierreItem.png"       , 6 ),
-        charbon(      "minerai de charbon" , 4 , "/universite_paris8/iut/dfang/sae_dev/item/charbonItem.png"      , 7 ),
-        fer(          "minerai de fer"     , 5 , "/universite_paris8/iut/dfang/sae_dev/item/ferItem.png"          , 8 ),
+        charbon(      "minerai de charbon" , 4 , "/universite_paris8/iut/dfang/sae_dev/item/charbonItem.png"      , 8 ),
+        fer(          "minerai de fer"     , 5 , "/universite_paris8/iut/dfang/sae_dev/item/ferItem.png"          , 7 ),
         bois(         "Block de bois"      , 6 , "/universite_paris8/iut/dfang/sae_dev/item/boisItem.png"         , 5 ),
         planche(      "Block de planche"   , 7 , "/universite_paris8/iut/dfang/sae_dev/item/plancheItem.png"      , 9 ),
         feuille(      "Block de feuille"   , 8 , "/universite_paris8/iut/dfang/sae_dev/item/feuilleItem.png"      , 4 ),
@@ -33,11 +26,11 @@ public class itemCollection {
         private final int codeBlock ;
 
 
-        Block(String nom, int id , String texture, int codeBlock){
+        Block(String nom, int id , String texture , int codeBlock){
             this.nom = nom;
             this.id = id;
             this.texture = texture;
-            this.codeBlock = codeBlock;
+            this.codeBlock = codeBlock ;
         }
 
         @Override
@@ -52,12 +45,16 @@ public class itemCollection {
         }
 
         public int getCodeBlock() {
-            return codeBlock;
+            return this.codeBlock;
         }
 
         @Override
         public int getType() {
             return 0;
+        }
+
+        public Block getThis(){
+            return this;
         }
     }
 

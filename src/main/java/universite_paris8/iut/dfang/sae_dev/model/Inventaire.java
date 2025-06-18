@@ -4,11 +4,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Personnages;
 
+import java.util.ArrayList;
+
 import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Divers.*;
 
 public class Inventaire implements EventHandler<MouseEvent> {
 
     private Item[] inv ;
+    private int[] quantite ;
     private int caseSelectionnee ;
     private TilePane items , caseInv ;
     private Personnages joueur ;
@@ -17,7 +20,7 @@ public class Inventaire implements EventHandler<MouseEvent> {
     public Inventaire(int  tailleInv , TilePane items , TilePane caseInv) {
         this.caseSelectionnee = 1;
         this.inv = new Item[tailleInv];
-        this.joueur = joueur;
+        this.quantite = new int[tailleInv];
         this.items = items;
         this.caseInv = caseInv;
     }
@@ -36,8 +39,11 @@ public class Inventaire implements EventHandler<MouseEvent> {
         }
         else {
             for (int i = 0; i < inv.length; i++) {
-                if (inv[i] == null) {
+                if (inv[i] == item)
+                    quantite[i] += 1 ;
+                else if (inv[i] == null) {
                     inv[i] = item;
+                    quantite[i] = 1 ;
                 }
             }
         }
@@ -73,5 +79,11 @@ public class Inventaire implements EventHandler<MouseEvent> {
 
     public int getCaseSelectionnee() {
         return caseSelectionnee;
+    }
+
+    public void aff(){
+        for (int i = 0 ; i < inv.length ; i++ ){
+            System.out.println(inv[i].getId() + "\n" + quantite[i] + "\n");
+        }
     }
 }

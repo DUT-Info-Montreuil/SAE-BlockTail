@@ -25,8 +25,6 @@ public class TerrainVue {
         this.terrain = terrain;
         this.tilePane = tilePane;
         this.createTerrain();
-
-
     }
 
     public void createTerrain(){
@@ -36,40 +34,18 @@ public class TerrainVue {
 
         for (int i = 0; i < terrain.hauteur() ; i++){
             for(int j = 0; j < terrain.largeur() ; j ++ ){
-                switch (terrain.codeTuile(i,j)){
-                    case 1 :
-                        tilePane.getChildren().add(new ImageView(ciel));
-                        break ;
-                    case 2 :
+                updateBlockTexture( i ,j );
 
-                            tilePane.getChildren().add(new ImageView(herbe));
-
-                            break;
-                    case 3 :
-                        tilePane.getChildren().add(new ImageView(terre));
-                        break;
-                    case 4 :
-                        tilePane.getChildren().add(new ImageView(feuille));
-                        break ;
-                    case 5 :
-                        tilePane.getChildren().add(new ImageView(bois));
-                        break ;
-                    case 6 :
-                        tilePane.getChildren().add(new ImageView(pierre));
-                        break ;
-                    case 7 :
-                        tilePane.getChildren().add(new ImageView(charbon));
-                        break ;
-                    case 8 :
-                        tilePane.getChildren().add(new ImageView(fer));
-                        break ;
-                }
             }
         }
     }
 
-    public void updateBlockTexture(int x , int y ,  int codeBlock){
-         tilePane.getChildren().remove((x * terrain.largeur()) + y);
+    public void removeTexture(int x , int y ){
+        tilePane.getChildren().remove((x * terrain.largeur()) + y);
+    }
+
+    public void updateBlockTexture(int x , int y  ){
+
         switch (terrain.codeTuile(x,y)){
             case 1 :
                 tilePane.getChildren().add( x * terrain.largeur() + y ,  new ImageView(ciel)  );
