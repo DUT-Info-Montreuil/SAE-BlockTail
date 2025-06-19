@@ -1,24 +1,21 @@
 package universite_paris8.iut.dfang.sae_dev.model;
 
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.dfang.sae_dev.controller.KeyPressed;
 import universite_paris8.iut.dfang.sae_dev.controller.KeyReleased;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Ennemis;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
-import universite_paris8.iut.dfang.sae_dev.model.Personnage.Personnages;
-import universite_paris8.iut.dfang.sae_dev.vue.EnnemisVue;
+
 import java.util.*;
 
 public class Environnement {
     private Terrain terrain ;
     private Joueur faust ;
     private ArrayList<Ennemis> ennemis ;
-    private int compteur = 0 ;
+    private int temps = 0 ;
+
 
 
     public Environnement(){
@@ -36,13 +33,15 @@ public class Environnement {
             ennemi.direction();
             ennemi.appliquerPhysique();
             ennemi.deplacement();
-            ennemi.toucher();
         }
-        if(compteur >= 60){
-            compteur = 0;
-
+        if(temps >= 60){
+            temps = 0;
+//            ennemis.add(new Ennemis(this));
+            for (Ennemis ennemi : ennemis) {
+                ennemi.toucher();
+            }
             System.out.println("POP");
-        }else compteur ++ ;
+        }else temps++ ;
     }
 
 
@@ -66,7 +65,7 @@ public class Environnement {
         return ennemis;
     }
 
-    public int getCompteur() {
-        return compteur;
+    public int getTemps() {
+        return temps;
     }
 }

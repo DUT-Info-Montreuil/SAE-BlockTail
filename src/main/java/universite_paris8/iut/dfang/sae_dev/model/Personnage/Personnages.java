@@ -16,9 +16,11 @@ public class Personnages {
     private boolean aDroite , aGauche , enHaut , auSol;
 
     private int vitesse ;
-    private double velocityY ;
-    private double gravity = 0.5 ;
-    private int jumpStrength = -6 ;
+    private double velociteY;
+    private double graviter = 0.5 ;
+    private int saut = -6 ;
+
+    private IntegerProperty etat = new SimpleIntegerProperty(0);
 
     private int pv ;
 
@@ -34,13 +36,18 @@ public class Personnages {
     public void direction() {
         if (aDroite) {
             deplacerDroite();
+            etat.setValue(1);
         }
-        if (aGauche) {
+        else if (aGauche) {
             deplacerGauche();
+            etat.setValue(2);
         }
+        else etat.setValue(0);
+
         if (enHaut) {
             sauter();
         }
+
     }
 
     public void deplacerDroite() {
@@ -67,36 +74,34 @@ public class Personnages {
 
     public void sauter() {
         if (auSol) {
-            velocityY = jumpStrength;
+            velociteY = saut;
             auSol = false;
         }
     }
 
 
     public void appliquerPhysique() {
-        velocityY += gravity;
+        velociteY += graviter;
 
-        int nouveauY = yProperty().get() + (int)velocityY;
+        int nouveauY = yProperty().get() + (int) velociteY;
         int currentX = xProperty().get();
 
         if (nouveauY <= 0) {
             nouveauY = 0;
-            velocityY = 0;
+            velociteY = 0;
             auSol = true;
             yProperty().set(nouveauY);
-            return;
         }
 
         if (nouveauY >= this.environnement.getTerrain().hauteurMax()) {
             nouveauY = this.environnement.getTerrain().hauteurMax();
-            velocityY = 0;
+            velociteY = 0;
             yProperty().set(nouveauY);
-            return;
         }
 
         boolean collision = false;
 
-        if (velocityY > 0) {
+        if (velociteY > 0) {
             int basPersonnage = nouveauY + HAUTEUR_COLLISION;
 
             boolean solGauche = !this.environnement.getTerrain().estAccessible(currentX, basPersonnage);
@@ -106,11 +111,11 @@ public class Personnages {
             if (solGauche || solDroite) {
                 int ligneSol = basPersonnage / Terrain.TAILLE_TUILES;
                 nouveauY = (ligneSol * Terrain.TAILLE_TUILES) - HAUTEUR_COLLISION;
-                velocityY = 0;
+                velociteY = 0;
                 auSol = true;
                 collision = true;
             }
-        } else if (velocityY < 0) {
+        } else if (velociteY < 0) {
             boolean plafondGauche = !this.environnement.getTerrain().estAccessible(currentX, nouveauY);
             boolean plafondDroite = !this.environnement.getTerrain().estAccessible(currentX + LARGEUR_COLLISION - 1, nouveauY);
 
@@ -118,7 +123,7 @@ public class Personnages {
             if (plafondGauche || plafondDroite) {
                 int lignePlafond = nouveauY / Terrain.TAILLE_TUILES;
                 nouveauY = (lignePlafond + 1) * Terrain.TAILLE_TUILES;
-                velocityY = 0;
+                velociteY = 0;
                 collision = true;
             }
         }
@@ -178,5 +183,17 @@ public class Personnages {
 
     public void setPv(int pv) {
         this.pv = pv;
+    }
+
+    public IntegerProperty etatProperty() {
+        return etat;
+    }
+
+    public int getEtat() {
+        return etat.get();
+    }
+
+    public void setEtat(int nouvelEtat) {
+        etat.set(nouvelEtat);
     }
 }

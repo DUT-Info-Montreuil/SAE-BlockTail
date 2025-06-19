@@ -9,11 +9,22 @@ import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import java.util.ArrayList;
 
 public class JoueurVue extends ImageView{
-    private Image personnageImg = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/personnage.png").toExternalForm());
-    private ArrayList<Image> images = new ArrayList<Image>();
+    private Image personnageDroite = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/luffydroite.gif").toExternalForm());
+    private Image personnageGauche = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/luffygauche.gif").toExternalForm());
+    private Image personnageSaut = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/immobile2.png").toExternalForm());
+    private Image personnageImmobile = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/immobile2.png").toExternalForm());
     public JoueurVue(Joueur joueur, Pane pane) {
         super();
-        this.setImage(personnageImg);
+        this.setImage(personnageImmobile);
+
+        joueur.etatProperty().addListener((obs, oldVal, newVal) -> {
+            switch (newVal.intValue()) {
+                case 0 -> setImage(personnageImmobile);
+                case 1 -> setImage(personnageDroite);
+                case 2 -> setImage(personnageGauche);
+                case 3 -> setImage(personnageSaut);
+            }
+        });
     }
     public void affichage(Joueur joueur , Pane pane){
         this.translateXProperty().bind(joueur.xProperty());
