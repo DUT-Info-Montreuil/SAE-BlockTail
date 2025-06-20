@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="BorderPanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.dfang.sae_dev.controller.Controleur">
+   <center>
+      <Pane fx:id="PanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1.0" prefWidth="1.0" scaleX="1.0" scaleY="1.0" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <TilePane fx:id="tilepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1.0" prefWidth="1.0" />
+         </children>
+      </Pane>
+   </center>
+   <bottom>
+      <Pane fx:id="contienInventaire" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="160.0" translateY="-75.0" BorderPane.alignment="BASELINE_CENTER">
+         <children>
+            <TilePane fx:id="caseInventaire" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="10" prefHeight="32.0" prefRows="2" prefWidth="160.0" scaleX="3.0" scaleY="3.0" tileAlignment="TOP_LEFT" />
+            <TilePane fx:id="items" maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="10" prefHeight="32.0" prefRows="2" prefWidth="160.0" scaleX="3.0" scaleY="3.0" tileAlignment="TOP_LEFT" />
+         </children>
+      </Pane>
+   </bottom>
+</BorderPane>
