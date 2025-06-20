@@ -1,4 +1,4 @@
-module universite_paris8.iut.dfang.sae_dev {
+module universite_paris.iut.dfang.sae_dev {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;

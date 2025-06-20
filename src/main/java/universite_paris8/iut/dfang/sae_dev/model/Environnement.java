@@ -1,39 +1,71 @@
 package universite_paris8.iut.dfang.sae_dev.model;
 
-import javafx.scene.layout.TilePane;
+import javafx.animation.Timeline;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import universite_paris8.iut.dfang.sae_dev.controller.KeyPressed;
+import universite_paris8.iut.dfang.sae_dev.controller.KeyReleased;
+import universite_paris8.iut.dfang.sae_dev.model.Personnage.Ennemis;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
-import universite_paris8.iut.dfang.sae_dev.model.Personnage.Personnages;
-import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Environnement {
     private Terrain terrain ;
     private Joueur faust ;
-    private ArrayList<Personnages> personnages ;
+    private ArrayList<Ennemis> ennemis ;
+    private int temps = 0 ;
 
 
-    public Environnement(TilePane items , TilePane caseInv , Terrain terrain){
-        this.terrain = terrain ;
-        this.faust = new Joueur(this , items , caseInv );
-        this.personnages = new ArrayList<>() ;
-        this.personnages.add(faust);
+
+    public Environnement(){
+        this.terrain = new Terrain();
+        this.faust = new Joueur(this);
+        this.ennemis = new ArrayList<Ennemis>();
+        ennemis.add(new Ennemis(this));
     }
 
     public void unTour(){
         this.getFaust().direction();
         this.getFaust().appliquerPhysique();
+
+        for (Ennemis ennemi : ennemis) {
+            ennemi.direction();
+            ennemi.appliquerPhysique();
+            ennemi.deplacement();
+        }
+        if(temps >= 60){
+            temps = 0;
+//            ennemis.add(new Ennemis(this));
+            for (Ennemis ennemi : ennemis) {
+                ennemi.toucher();
+            }
+            System.out.println("POP");
+        }else temps++ ;
+    }
+
+
+    public void initialize(Pane PanePrincipal , Timeline gameLoop){
+        PanePrincipal.addEventHandler(KeyEvent.KEY_PRESSED, new KeyPressed( faust ));
+        PanePrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleased( faust));
+        PanePrincipal.setFocusTraversable(true);
+        PanePrincipal.requestFocus();
+        gameLoop.play();
     }
 
     public Joueur getFaust() {
-        return this.faust;
+        return faust;
     }
 
     public Terrain getTerrain() {
-        return this.terrain;
+        return terrain;
     }
 
-    public ArrayList<Personnages> getPersonnages() {
-        return personnages;
+    public ArrayList<Ennemis> getEnnemis() {
+        return ennemis;
+    }
+
+    public int getTemps() {
+        return temps;
     }
 }

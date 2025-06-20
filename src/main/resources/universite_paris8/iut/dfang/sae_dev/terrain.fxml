@@ -18,10 +18,10 @@
       </Pane>
    </center>
    <bottom>
-      <Pane fx:id="contienInventaire" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="contienInventaire" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="160.0" translateY="-75.0" BorderPane.alignment="BASELINE_CENTER">
          <children>
-            <TilePane fx:id="caseInventaire" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="10" prefHeight="200.0" prefRows="2" prefWidth="200.0" scaleX="3.0" scaleY="3.0" />
-            <TilePane fx:id="items" maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="10" prefHeight="200.0" prefRows="2" prefWidth="200.0" scaleX="3.0" scaleY="3.0" tileAlignment="TOP_LEFT" />
+            <TilePane fx:id="caseInventaire" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="10" prefHeight="32.0" prefRows="2" prefWidth="160.0" scaleX="3.0" scaleY="3.0" tileAlignment="TOP_LEFT" />
+            <TilePane fx:id="items" maxHeight="-Infinity" maxWidth="-Infinity" prefColumns="10" prefHeight="32.0" prefRows="2" prefWidth="160.0" scaleX="3.0" scaleY="3.0" tileAlignment="TOP_LEFT" />
          </children>
       </Pane>
    </bottom>

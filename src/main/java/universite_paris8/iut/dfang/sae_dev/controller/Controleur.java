@@ -12,28 +12,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import org.controlsfx.control.PropertySheet;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
+import universite_paris8.iut.dfang.sae_dev.vue.EnvironnementVue;
 import universite_paris8.iut.dfang.sae_dev.vue.InventaireVue;
 import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
 import universite_paris8.iut.dfang.sae_dev.vue.TerrainVue;
-import universite_paris8.iut.dfang.sae_dev.model.itemCollection;
 
 import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Block.*;
-import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Divers.*;
-import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Arme.*;
 
 
 public class Controleur implements Initializable {
 
 
     private Timeline gameLoop;
-    private int temps;
     private Environnement environnement ;
-    private Joueur faust ;
-    private PersonnagesVue faustVue ;
+    private EnvironnementVue environnementVue ;
 
     @FXML
     public BorderPane BorderPanePrincipal;
@@ -54,18 +49,21 @@ public class Controleur implements Initializable {
     public Pane contienInventaire ;
 
 
+    /**
+     * initialise tout ce qui est utiliser au lancement du jeux
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        initAnimation();
+        initTimeline();
 
-
-        environnement = new Environnement( items , caseInventaire , new Terrain());
+        environnement = new Environnement(  );
+        environnementVue = new EnvironnementVue(environnement, tilepane, PanePrincipal , items , caseInventaire);
+        environnementVue.initializeVue(PanePrincipal);
 
         TerrainVue terrrainVue = new TerrainVue(environnement.getTerrain(), tilepane);
 
-        faustVue = new PersonnagesVue(environnement.getFaust(),PanePrincipal);
-        faustVue.affichage(environnement.getFaust(), PanePrincipal);
+
 
         caseInventaire.setPrefSize(10 * 16, 2 * 16);
         items.setPrefSize(10 * 16, 2 * 16);
@@ -79,7 +77,7 @@ public class Controleur implements Initializable {
         PanePrincipal.setFocusTraversable(true);
         PanePrincipal.requestFocus();
 
-        contienInventaire.addEventHandler(MouseEvent.MOUSE_CLICKED , new MouseClickInv());
+        contienInventaire.addEventHandler(MouseEvent.MOUSE_CLICKED , new MouseClickInv( environnement.getFaust().getInv() , inv));
 
         environnement.getFaust().getInv().aff();
 
@@ -88,14 +86,17 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-    private void initAnimation(){
+    /**
+     * initaialise la time loop
+     */
+    private void initTimeline(){
         gameLoop = new Timeline();
-        temps = 0 ;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.017),(ev ->{
 
             environnement.unTour();
+            environnementVue.unTourVue();
 
 
         }));

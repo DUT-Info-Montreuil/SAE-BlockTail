@@ -38,26 +38,6 @@ public class Terrain {
     };
 
 
-    private int[][] map1 = {
-            {1,1,1,1,1},
-            {1,1,2,2,2},
-            {3,3,3,3,3},
-    };
-
-
-    private int[][] map2 = {
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,4,4,4,1,1,1,1,1,1,1,1},
-            {1,1,1,4,5,4,1,1,1,1,1,1,1,1},
-            {1,1,1,4,5,4,1,1,1,1,1,1,1,1},
-            {1,1,1,1,5,1,1,1,1,1,1,1,1,1},
-            {1,1,1,2,2,2,1,1,1,1,1,1,1,1},
-            {2,2,2,3,3,3,2,2,2,2,2,2,2,2},
-            {3,3,3,6,6,6,3,3,3,3,3,3,3,3},
-            {6,6,6,8,8,8,6,6,6,7,6,6,6,6},
-    };
-
-
 
     public int hauteur()  {
         return this.codesTuiles.length;
@@ -67,10 +47,19 @@ public class Terrain {
         return this.codesTuiles[0].length;
     }
 
+    /**
+     * retourne le chifre situer au coordoner passer en parametre
+     *
+     */
     public int codeTuile (int l, int c) {
         return this.codesTuiles[l][c];
     }
 
+
+    /**
+     *retourne true si le block est transparent
+     * retourne fals si le block est solide ou est hors du terrain
+     */
     public boolean estAccessible(int x , int y){
         if(x < 0 || y < 0){
             return false ;
@@ -96,10 +85,16 @@ public class Terrain {
         return largeur() * 16 ;
     }
 
+    /**
+     * remplace le chifre au coordoner donner par un 1 (le ciel)
+     */
     public void casseBlock(int c ,int l){
         codesTuiles[c][l] = 1;
     }
 
+    /**
+     * remplace le chifre au coordoner donner par le code d'un block passer en parametre
+     */
     public void placeBlock(int c ,int l , int block){
         codesTuiles[c][l] = block;
     }

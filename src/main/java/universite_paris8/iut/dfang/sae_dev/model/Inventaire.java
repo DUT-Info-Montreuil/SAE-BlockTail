@@ -1,4 +1,5 @@
 package universite_paris8.iut.dfang.sae_dev.model;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
@@ -10,80 +11,77 @@ import static universite_paris8.iut.dfang.sae_dev.model.itemCollection.Divers.*;
 
 public class Inventaire implements EventHandler<MouseEvent> {
 
-    private Item[] inv ;
-    private int[] quantite ;
-    private int caseSelectionnee ;
-    private TilePane items , caseInv ;
-    private Personnages joueur ;
+    private Item[] inv;
+    private int[] quantite;
+    private int caseSelectionnee;
+    private Personnages joueur;
+    private final int QUANTITE_MAX = 64 ;
 
 
-    public Inventaire(int  tailleInv , TilePane items , TilePane caseInv) {
-        this.caseSelectionnee = 1;
+    public Inventaire(int tailleInv) {
+        this.caseSelectionnee = 0;
         this.inv = new Item[tailleInv];
         this.quantite = new int[tailleInv];
-        this.items = items;
-        this.caseInv = caseInv;
-    }
-
-    public int getTailleInv(){
-        return this.inv.length;
+        for (int i = 0; i < inv.length; i++)
+            inv[i] = vide;
     }
 
     public Item[] getInvTab() {
         return inv;
     }
 
-    public void ajouteAInventaire(Item item){
-        if (getItem() == vide){
-            this.inv[caseSelectionnee] = item ;
-        }
-        else {
+    /**
+     *si la case selectione est vide ajoute l'item dans la case
+     * si la case est plene ajoute l'item a la premiere case libre
+     *
+     */
+    public void ajouteAInventaire(Item item) {
+        if (getItem() == vide) {
+            this.inv[caseSelectionnee] = item;
+        } else {
             for (int i = 0; i < inv.length; i++) {
-                if (inv[i] == item)
-                    quantite[i] += 1 ;
-                else if (inv[i] == null) {
+                if (inv[i] == vide) {
                     inv[i] = item;
-                    quantite[i] = 1 ;
+                    i = inv.length ;
                 }
             }
         }
     }
 
-    public Item getItem(){
+    public Item getItem() {
         return this.inv[caseSelectionnee];
     }
 
-    public boolean inventairePlen(){
-        for (int i = 0 ; i < inv.length ; i ++ ){
-            if(inv[i] == null ){
-                return false ;
+    /**
+     * rempli l'inventaire d'un item passer en parametre
+     *
+     */
+    public void remplireInventaire(Item i) {
+        for (int index = 0 ; index < inv.length ; index ++ ){
+            if (inv[index] == vide){
+                ajouteAInventaire(i);
+                for (int indexQuantite = quantite[index] ; indexQuantite < QUANTITE_MAX ; indexQuantite ++  ){
+                    quantite[index] += 1 ;
+                }
             }
         }
-        return true ;
-    }
-
-    public void remplireInventaire(Item i){
-        while (!inventairePlen()){
-            ajouteAInventaire(i);
-        }
-    }
-
-    @Override
-    public void handle(MouseEvent mouseEvent) {
-        double cliqueX , cliqueY ;
-
-        cliqueX = mouseEvent.getSceneX();
-        cliqueY = mouseEvent.getSceneY();
-        System.out.println(cliqueX + "\n" + cliqueY);
     }
 
     public int getCaseSelectionnee() {
         return caseSelectionnee;
     }
 
-    public void aff(){
-        for (int i = 0 ; i < inv.length ; i++ ){
+    /**
+     * affiche l'inventaire dans la console
+     */
+    public void aff() {
+        for (int i = 0; i < inv.length; i++) {
             System.out.println(inv[i].getId() + "\n" + quantite[i] + "\n");
         }
+    }
+
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+
     }
 }

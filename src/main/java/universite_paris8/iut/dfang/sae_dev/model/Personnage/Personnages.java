@@ -1,16 +1,11 @@
 package universite_paris8.iut.dfang.sae_dev.model.Personnage;
 
-import eu.hansolo.tilesfx.Tile;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Environnement;
 import universite_paris8.iut.dfang.sae_dev.model.Inventaire;
-import universite_paris8.iut.dfang.sae_dev.model.Item;
 import universite_paris8.iut.dfang.sae_dev.model.Terrain;
-import universite_paris8.iut.dfang.sae_dev.vue.PersonnagesVue;
-
-import java.util.Arrays;
 
 
 public class Personnages {
@@ -25,18 +20,27 @@ public class Personnages {
     private int vitesse ;
     private double velocityY ;
     private double gravity = 0.5 ;
-    private int jumpStrength = -5 ;
+    private int saut = -5 ;
     private Inventaire inv ;
 
+    private IntegerProperty etat = new SimpleIntegerProperty(0);
 
-    public Personnages(int x , int y , Environnement environnement , int vitesse , TilePane items , TilePane caseInv){
+    private int pv ;
+
+    public Personnages( int pv ,int x , int y , Environnement environnement , int vitesse ){
         this.xPos = new SimpleIntegerProperty(x);
         this.yPos = new SimpleIntegerProperty(y);
         this.environnement = environnement;
         this.vitesse = vitesse ;
-        this.inv = new Inventaire(20 , items , caseInv);
+        this.pv = pv ;
+        this.inv = new Inventaire( 20 );
     }
 
+
+
+    /**
+     * fait se deplacer le personage dans les diection selectione
+     */
     public void direction() {
         if (aDroite) {
             deplacerDroite();
@@ -49,6 +53,10 @@ public class Personnages {
         }
     }
 
+
+    /**
+     * fait bouger le joueur a droite
+     */
     public void deplacerDroite() {
         int nouveauX = xProperty().get() + vitesse;
         int actuelY = yProperty().get();
@@ -61,6 +69,9 @@ public class Personnages {
         }
     }
 
+    /**
+     * fait bouger le joueur a gauche
+     */
     public void deplacerGauche() {
         int nouveauX = xProperty().get() - vitesse;
         int currentY = yProperty().get();
@@ -74,14 +85,22 @@ public class Personnages {
     }
 
 
-    private void sauter() {
+    /**
+     * fait sauter le joueur
+     */
+    void sauter() {
         if (auSol) {
-            velocityY = jumpStrength;
+            velocityY = saut;
             auSol = false;
         }
     }
 
 
+    /**
+     * fait tomber le joueur quand il ne touche pas le sol
+     *
+     * empeche le joueur de macher dans les murs (colision)
+     */
     public void appliquerPhysique() {
         velocityY += gravity;
 
@@ -160,10 +179,6 @@ public class Personnages {
         this.enHaut = enHaut;
     }
 
-    public Environnement getEnvironnement() {
-        return environnement;
-    }
-
     public IntegerProperty yProperty(){
         return this.yPos ;
     }
@@ -188,4 +203,23 @@ public class Personnages {
         this.xPos.set(xPos);
     }
 
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
+
+    public IntegerProperty etatProperty() {
+        return etat;
+    }
+
+    public int getEtat() {
+        return etat.get();
+    }
+
+    public void setEtat(int nouvelEtat) {
+        etat.set(nouvelEtat);
+    }
+
+    public int getPv() {
+        return pv;
+    }
 }

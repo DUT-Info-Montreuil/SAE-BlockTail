@@ -17,13 +17,13 @@ public class KeyPressed implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()){
             case Z :
-                faust.setEnHaut(true);
+                faust.setEnHaut(true);//fait sauter le personage
                 break;
             case Q :
-                faust.setaGauche(true);
+                faust.setaGauche(true);//fait bouger le personage a gauche
                 break;
             case D :
-                faust.setaDroite(true);
+                faust.setaDroite(true);//fait bouger le personage a droite
                 break;
         }
     }

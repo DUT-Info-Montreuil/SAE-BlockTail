@@ -18,13 +18,13 @@ public class KeyReleased implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         switch (event.getCode()){
             case Z :
-                faust.setEnHaut(false);
+                faust.setEnHaut(false);// arrete de faire sauter le personage
                 break;
             case Q :
-                faust.setaGauche(false);
+                faust.setaGauche(false);// arette le personage d'aller a gauche
                 break;
             case D :
-                faust.setaDroite(false);
+                faust.setaDroite(false);// arette le personage d'aller a droite
                 break;
 
         }

@@ -33,14 +33,18 @@ public class MouseClickBlock implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent ) {
 
-
+        /**
+         * casse le block cliquer par le joueur
+         */
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-//            p.getInv().ajouteAInventaire();
             terrain.casseBlock((int) ceil(mouseEvent.getSceneY() / 16) - 1 , (int) ceil(mouseEvent.getSceneX() / 16) - 1);
             terrainVue.removeTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , ((int) ceil(mouseEvent.getSceneX() / 16) - 1)  );
             terrainVue.updateBlockTexture(((int) ceil(mouseEvent.getSceneY() / 16) - 1) , (int) ceil(mouseEvent.getSceneX() / 16) - 1  );
 
         }
+        /**
+         * remplace le block cliquer par le block dans la case 1 de l'inventaire
+         */
         else if (mouseEvent.getButton() == MouseButton.SECONDARY){
             itemCollection.Block i ;
             if (p.getInv().getInvTab()[p.getInv().getCaseSelectionnee()].getType() == 0){

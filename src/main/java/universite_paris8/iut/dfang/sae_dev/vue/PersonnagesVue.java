@@ -4,6 +4,7 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import universite_paris8.iut.dfang.sae_dev.model.Personnage.Joueur;
 
 import java.util.ArrayList;
@@ -13,14 +14,37 @@ public class PersonnagesVue extends ImageView{
     private ArrayList<Image> images = new ArrayList<Image>();
 
 
-    public PersonnagesVue(Joueur joueur, Pane pane ) {
-        super();
-        this.setImage(personnageImg);
+    public static class JoueurVue extends ImageView {
+        private Image personnageDroite = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/luffydroite.gif").toExternalForm());
+        private Image personnageGauche = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/luffygauche.gif").toExternalForm());
+        private Image personnageSaut = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/immobile2.png").toExternalForm());
+        private Image personnageImmobile = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/immobile2.png").toExternalForm());
+
+        public JoueurVue(Joueur joueur, Pane pane , TilePane items , TilePane caseInv ) {
+            super();
+            this.setImage(personnageImmobile);
+
+            joueur.etatProperty().addListener((obs, oldVal, newVal) -> {
+                switch (newVal.intValue()) {
+                    case 0 -> setImage(personnageImmobile);
+                    case 1 -> setImage(personnageDroite);
+                    case 2 -> setImage(personnageGauche);
+                    case 3 -> setImage(personnageSaut);
+                }
+            });
+        }
+
+        /**
+         * affiche le sprite du personage
+         */
+        public void affichage(Joueur joueur , Pane pane){
+            this.translateXProperty().bind(joueur.xPosProperty());
+            this.translateYProperty().bind(joueur.yPosProperty());
+            pane.getChildren().add(this);
+
+        }
     }
-    public void affichage(Joueur joueur , Pane pane){
-        this.translateXProperty().bind(joueur.xPosProperty());
-        this.translateYProperty().bind(joueur.yPosProperty());
-        pane.getChildren().add(this);
-    }
+
+
 
 }

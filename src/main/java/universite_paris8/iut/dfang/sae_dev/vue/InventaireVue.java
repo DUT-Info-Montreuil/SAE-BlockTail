@@ -23,6 +23,9 @@ public class InventaireVue {
 
     }
 
+    /**
+     * affiche les 20 case de l'inventaire
+     */
     public void affichCase(){
         Image inv = new Image(getClass().getResource("/universite_paris8/iut/dfang/sae_dev/inventaireSlot.png").toExternalForm());
 
@@ -34,6 +37,9 @@ public class InventaireVue {
 
     }
 
+    /**
+     * affiche les items contenue dans l'inventaire
+     */
     public void affichItem(){
 
         for (int i = 0; i < 20; i++) {

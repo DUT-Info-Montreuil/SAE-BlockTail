@@ -13,8 +13,8 @@ public class Joueur extends Personnages{
     private int ID ;
 
 
-    public Joueur(Environnement environnement , TilePane Items , TilePane caseInv){
-        super(100,100 ,environnement, 2 , Items , caseInv   ) ;
+    public Joueur(Environnement environnement ){
+        super(100,100 , 100  , environnement , 2 ) ;
     }
 
 
@@ -46,4 +46,6 @@ public class Joueur extends Personnages{
     public int getID() {
         return ID;
     }
+
+
 }
