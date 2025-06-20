@@ -84,6 +84,13 @@ public class TerrainVue {
             case 8 :
                 tilePane.getChildren().add(x * terrain.largeur() + y ,new ImageView(fer));
                 break ;
+            case 9 :
+                tilePane.getChildren().add(x * terrain.largeur() + y ,new ImageView(planche));
+                break ;
+            case 10 :
+                tilePane.getChildren().add(x * terrain.largeur() + y ,new ImageView(brique_de_pierre));
+                break ;
+
         }
 //         tilePane.getChildren().add(tile , codeBlock );
     }
