@@ -10,15 +10,15 @@ import universite_paris8.iut.dfang.sae_dev.model.Terrain;
 
 public class Personnages {
 
-    private final int HAUTEUR_COLLISION = 16 ,LARGEUR_COLLISION = 16;
+    public final int HAUTEUR_COLLISION = 16 ,LARGEUR_COLLISION = 16;
 
     private IntegerProperty xPos , yPos ;
     private Environnement environnement ;
 
-    private boolean aDroite , aGauche , enHaut , auSol;
+    public boolean aDroite , aGauche , enHaut , auSol;
 
     private int vitesse ;
-    private double velocityY ;
+    public double velocityY ;
     private double gravity = 0.5 ;
     private int saut = -5 ;
     private Inventaire inv ;

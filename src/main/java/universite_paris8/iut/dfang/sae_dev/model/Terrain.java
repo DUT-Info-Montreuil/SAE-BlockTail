@@ -133,6 +133,10 @@ public class Terrain {
     public void placeBlock(int c ,int l , int block){
         codesTuiles[c][l] = block;
     }
+
+    public int getligne(){
+        return codesTuiles.length;
+    }
 }
 
 
